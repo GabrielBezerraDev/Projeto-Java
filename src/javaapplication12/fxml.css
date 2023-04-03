@@ -1,0 +1,11 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.button{
+    -fx-background-color: red;
+}
+
+.button:hover{
+    -fx-cursor:hand;
+}
