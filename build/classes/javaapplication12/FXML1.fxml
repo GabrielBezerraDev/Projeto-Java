@@ -24,7 +24,7 @@
             <TextField layoutX="28.0" layoutY="101.0" />
             <TextField layoutX="28.0" layoutY="161.0" />
             <TextField layoutX="28.0" layoutY="222.0" />
-            <Button layoutX="28.0" layoutY="257.0" mnemonicParsing="false" text="Button" textFill="WHITE" />
+            <Button layoutX="28.0" layoutY="257.0" mnemonicParsing="false" text="Cadastrar" textFill="WHITE" />
          </children>
       </Pane>
    </children>
