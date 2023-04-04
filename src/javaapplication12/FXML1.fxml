@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaapplication12.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-border-width: 2px; -fx-border-radius: 30px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaapplication12.FXMLController">
     <stylesheets>
         <URL value="@fxml.css" />
     </stylesheets>
    <children>
       <HBox prefHeight="77.0" prefWidth="600.0" style="-fx-background-color: red;" />
-      <Label layoutX="235.0" layoutY="191.0" styleClass="defaultLabel" text="Label" />
-      <Label layoutX="235.0" layoutY="140.0" styleClass="defaultLabel" text="Label" />
-      <Label layoutX="235.0" layoutY="232.0" styleClass="defaultLabel" text="Label" />
-      <Label layoutX="263.0" layoutY="276.0" styleClass="defaultLabel" text="Label" />
+      <Pane layoutX="179.0" layoutY="88.0" prefHeight="296.0" prefWidth="246.0" styleClass="cadastrar">
+         <children>
+            <Label layoutX="28.0" layoutY="14.0" styleClass="defaultLabel" text="Usuário:" />
+            <Label layoutX="28.0" layoutY="77.0" styleClass="defaultLabel" text="Email:" />
+            <Label layoutX="28.0" layoutY="136.0" styleClass="defaultLabel" text="Senha:" />
+            <Label layoutX="28.0" layoutY="199.0" styleClass="defaultLabel" text="Repita a senha:" />
+            <TextField layoutX="28.0" layoutY="42.0" />
+            <TextField layoutX="28.0" layoutY="101.0" />
+            <TextField layoutX="28.0" layoutY="161.0" />
+            <TextField layoutX="28.0" layoutY="222.0" />
+            <Button layoutX="28.0" layoutY="257.0" mnemonicParsing="false" text="Button" textFill="WHITE" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -16,7 +16,12 @@
 }
 
 .defaultLabel{
-    -fx-width:92px;
-    -fx-hieght:18.4;
-    -fx-text-fill: red;
+    -fx-pref-width: 92;
+    -fx-pref-height:18;
+}
+
+.cadastrar{
+    -fx-background-radius:30px;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
 }

@@ -50,7 +50,8 @@ public class FXMLController implements Initializable {
     public void cadastro() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML1.fxml"));
         Parent root = loader.load();
-        Scene scene = painel.getScene(); // ou Stage.getScene() se você tiver acesso ao objeto Stage
+        Scene scene = painel.getScene(); 
+        scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         scene.setRoot(root);
     }
     
