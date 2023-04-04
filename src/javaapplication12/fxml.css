@@ -9,3 +9,13 @@
 .button:hover{
     -fx-cursor:hand;
 }
+
+.cadastro:hover{
+    -fx-cursor:hand;
+    -fx-fill:blue;
+}
+
+.defaultLabel{
+    -fx-width:92px;
+    -fx-hieght:18.4;
+}

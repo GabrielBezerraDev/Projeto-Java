@@ -17,13 +17,13 @@
       <TextField fx:id="sobrenome" layoutX="226.0" layoutY="203.0" />
       <TextField fx:id="nome" layoutX="226.0" layoutY="137.0" />
       <HBox prefHeight="62.0" prefWidth="601.0" style="-fx-background-color: red;" styleClass="hbox" />
-      <Label layoutX="226.0" layoutY="118.0" prefHeight="18.0" prefWidth="92.0" text="Usuário" />
-      <Label layoutX="226.0" layoutY="177.0" prefHeight="18.0" prefWidth="92.0" text="Senha" />
+      <Label layoutX="226.0" layoutY="118.0" prefHeight="18.0" prefWidth="92.0" styleClass="defaultLabel" text="Usuário" />
+      <Label layoutX="226.0" layoutY="177.0" prefHeight="18.0" prefWidth="92.0" styleClass="defaultLabel" text="Senha" />
       <Button layoutX="223.0" layoutY="248.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="151.0" text="Logar" textFill="WHITE" />
-      <TextFlow layoutX="195.0" layoutY="300.0" prefHeight="18.0" prefWidth="212.0">
+      <TextFlow layoutX="196.0" layoutY="300.0" prefHeight="18.0" prefWidth="212.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Não tem uma conta? " />
-            <Text onMouseClicked="#cadastro" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastre-se!" wrappingWidth="51.58304977416992" />
+            <Text onMouseClicked="#cadastro" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cadastro" text="Cadastre-se!" wrappingWidth="51.58304977416992" />
          </children>
       </TextFlow>
    </children>

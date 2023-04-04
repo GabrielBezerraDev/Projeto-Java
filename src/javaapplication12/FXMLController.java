@@ -17,11 +17,16 @@ import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputControl;
 
 public class FXMLController implements Initializable {
 
     @FXML
-    private TextField nome, sobrenome, email;
+    private TextField nome, email;
+    
+    @FXML
+    TextInputControl sobrenome = new TextField();;
+    
     @FXML
     private AnchorPane painel;
     
@@ -29,7 +34,6 @@ public class FXMLController implements Initializable {
     public void clicar(){
         List<TextField> form = new ArrayList<>();
         form.add(nome);
-        form.add(sobrenome);
         form.add(email);
         double height = 100;
         for(int i = 0; i < 3; i++){
@@ -50,14 +54,12 @@ public class FXMLController implements Initializable {
         scene.setRoot(root);
     }
     
-
-    
-    
+       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sobrenome.onInputMethodTextChangedProperty().set(event -> {
-    System.out.println("Texto digitado: " + event.getCommitted());
-});
+        sobrenome.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.printf("%s",observable);
+        });
     }    
     
 }
