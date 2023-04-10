@@ -11,10 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author bezer
- */
+
 public class NewFXMain extends Application {
     
     @Override
@@ -24,6 +21,9 @@ public class NewFXMain extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         Stage stage = new Stage();
+        stage.setMinWidth(790); 
+        stage.setMinHeight(345); 
+        stage.setResizable(false); 
         stage.setScene(scene);
         stage.show();
     } 

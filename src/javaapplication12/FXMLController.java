@@ -10,57 +10,137 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class FXMLController implements Initializable {
 
     @FXML
-    private TextField nome, email;
+    private GridPane painel;
     
     @FXML
-    TextInputControl sobrenome = new TextField();;
+    private Label animation;
     
     @FXML
-    private AnchorPane painel;
+    private  ImageView image;
     
     @FXML
-    public void clicar(){
-        List<TextField> form = new ArrayList<>();
-        form.add(nome);
-        form.add(email);
-        double height = 100;
-        for(int i = 0; i < 3; i++){
-            Label novoLabel = new Label();
-            novoLabel.setLayoutX(400);
-            novoLabel.setLayoutY(height);
-            novoLabel.setText(form.get(i).getText());
-            painel.getChildren().add(novoLabel);
-            height+= 20;
+    private Pane programador, supervisionar;
+    
+    @FXML
+   private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
+    
+    @FXML
+    private int i = 0;
+    
+    @FXML
+    boolean realese = false, end = false;
+    
+    @FXML
+    public void supervisor(){
+        supervisionar.setVisible(true);
+        image.setVisible(false);
+        programador.setVisible(false);
+        animation.setVisible(false);
+    }
+    
+    @FXML
+    public void animation(){
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                String[] teste = texto.split("");
+                elemento += teste[i];
+                 Platform.runLater(() -> {
+                     animation.setText(elemento);
+                 });
+                 i++;
+                if(i != texto.length() ) animation();
+            }
+        };
+        timer.schedule(task, 80);
+    }
+    
+    @FXML
+    public void teste(){
+        Timer timer = new Timer();
+        TimerTask task;
+        task = new TimerTask( ){
+            @Override
+            public void run() {
+                if(realese == false){
+                    Platform.runLater(() -> {
+                          animation.setText(elemento.substring(0, elemento.length()-1));
+                          System.out.println("Work 1");
+                          realese = true;
+                          teste();
+                     });
+                }
+                else{
+                          Platform.runLater(() -> {
+                            animation.setText(elemento);
+                            System.out.println("Work 0");
+                            realese=false;
+                            teste();
+                     });
+                }
+            }
+        };
+        if(end == false)  { 
+            timer.schedule(task, 3000);
+            end = true;
         }
-    }   
-        
+        else{
+            timer.schedule(task, 500);
+        }
+    }
+    
+    @FXML
+    public void funcionario(){
+        supervisionar.setVisible(false);
+        image.setVisible(false);
+        programador.setVisible(true);
+        animation.setVisible(false);
+    }
+    
     @FXML
     public void cadastro() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML1.fxml"));
         Parent root = loader.load();
-        Scene scene = painel.getScene(); 
+        Scene scene = painel.getScene();
+        Stage stage = (Stage) painel.getScene().getWindow();
+        stage.setResizable(true);
+        stage.setScene(scene);
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         scene.setRoot(root);
     }
     
-       
+           
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sobrenome.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.printf("%s",observable);
+         Platform.runLater(() -> {
+                Scene scene = painel.getScene();
+                scene.setOnMouseClicked(event -> {
+                Node teste = (Node) event.getTarget();
+                System.out.println(teste.getId());
         });
+                supervisionar.setVisible(false);
+                programador.setVisible(false);
+                animation();
+                teste();
+    });
     }    
     
 }
