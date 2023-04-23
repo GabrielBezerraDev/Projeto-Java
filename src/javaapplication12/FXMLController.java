@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FXMLController implements Initializable {
@@ -45,6 +46,8 @@ public class FXMLController implements Initializable {
     @FXML
     private TextField amountEmployee;
     
+    @FXML
+    private Text tittleDescription;
     @FXML
     private  ImageView image;
     
@@ -140,6 +143,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void cadastrado(){
+        tittleDescription.setText("Projeto");
         cadastroPessoa.setVisible(false);
         cadastroProjeto.setVisible(true);
     }
@@ -151,7 +155,6 @@ public class FXMLController implements Initializable {
             int layoutY = 0;
             Label[] labelsEmployees = new Label[6];
             TextField[] textInput = new TextField[6];
-            Label tittle = new Label();
             Label description = new Label();
             TextArea textArea = new TextArea();
             String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
@@ -163,9 +166,6 @@ public class FXMLController implements Initializable {
             employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
             employee.get(countEmployee).setPrefSize(356,328);
             main.getChildren().add(employee.get(countEmployee));
-            tittle.setLayoutX(23);
-            tittle.setLayoutY(23);
-            tittle.setText(String.format("%dºmembro:", countEmployee+1));
             description.setLayoutX(27);
             description.setLayoutY(187);
             textArea.setLayoutX(27);
@@ -200,7 +200,7 @@ public class FXMLController implements Initializable {
                 employee.get(countEmployee).getChildren().add(textInput[i]);
                 employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
             }
-            employee.get(countEmployee).getChildren().add(tittle);
+            tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
             employee.get(countEmployee).getChildren().add(textArea);
             employee.get(countEmployee).getChildren().add(description);
             employee.get(countEmployee).getChildren().add(buttonNext);
@@ -222,13 +222,16 @@ public class FXMLController implements Initializable {
         if(countEmployee == 0 && visibleProject == false){
             cadastroProjeto.setVisible(true);
             visibleProject = true;
+            tittleDescription.setText("Projeto");
             return;
         }
         else if(employee.isEmpty()){
             cadastroProjeto.setVisible(false);
             cadastroPessoa.setVisible(true);
+            tittleDescription.setText("Coodernador");
             return;
         }
+       tittleDescription.setText(String.format("%dºmembro:", countEmployee));
         employee.get(countEmployee-1).setVisible(true);
     }
     

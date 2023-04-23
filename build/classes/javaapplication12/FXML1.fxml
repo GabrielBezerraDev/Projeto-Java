@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaapplication12.FXMLController">
@@ -23,7 +24,7 @@
    <children>
       <Pane fx:id="main" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Text fill="RED" layoutX="59.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos com o asterisco são obrigatórios" wrappingWidth="238.13671875" />
+            <Text fill="RED" layoutX="67.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos com o asterisco são obrigatórios" wrappingWidth="238.13671875" />
             <Pane fx:id="cadastroProjeto" layoutY="21.0" prefHeight="328.0" prefWidth="356.0" style="visibility: hidden;">
                <children>
                   <TextField layoutX="28.0" layoutY="53.0" />
@@ -56,7 +57,14 @@
          </children>
       </Pane>
       <Pane prefHeight="43.0" prefWidth="124.0" style="-fx-background-color: red;" />
-      <Pane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="1" />
+      <Pane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="1">
+         <children>
+            <Text fx:id="tittleDescription" fill="WHITE" layoutX="76.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="COORDENADOR" textAlignment="CENTER" wrappingWidth="203.199951171875">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children></Pane>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="2" />
    </children>
 </GridPane>
