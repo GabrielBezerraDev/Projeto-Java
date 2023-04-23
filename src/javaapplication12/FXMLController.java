@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -142,7 +143,7 @@ public class FXMLController implements Initializable {
         cadastroPessoa.setVisible(false);
         cadastroProjeto.setVisible(true);
     }
-    
+    //X = 381 e Y = 137
     @FXML
     public void next(){
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
@@ -150,7 +151,9 @@ public class FXMLController implements Initializable {
             int layoutY = 0;
             Label[] labelsEmployees = new Label[6];
             TextField[] textInput = new TextField[6];
+            Label tittle = new Label();
             Label description = new Label();
+            TextArea textArea = new TextArea();
             String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
             cadastroProjeto.setVisible(false);
             visibleProject = false;
@@ -160,17 +163,23 @@ public class FXMLController implements Initializable {
             employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
             employee.get(countEmployee).setPrefSize(356,328);
             main.getChildren().add(employee.get(countEmployee));
+            tittle.setLayoutX(23);
+            tittle.setLayoutY(23);
+            tittle.setText(String.format("%dºmembro:", countEmployee+1));
             description.setLayoutX(27);
             description.setLayoutY(187);
+            textArea.setLayoutX(27);
+            textArea.setLayoutY(208);
+            textArea.setPrefSize(317, 100);
             description.setText("Descrição da função");
             Button buttonPrevious = new Button();
             Button buttonNext = new Button();
             buttonPrevious.setText("Anterior");
             buttonPrevious.setLayoutX(30);
-            buttonPrevious.setLayoutY(307);
+            buttonPrevious.setLayoutY(315);
             buttonNext.setText("Próximo");
             buttonNext.setLayoutX(269);
-            buttonNext.setLayoutY(307);
+            buttonNext.setLayoutY(315);
             buttonNext.setOnMouseClicked((MouseEvent event) -> {
                 next();
             });
@@ -191,6 +200,8 @@ public class FXMLController implements Initializable {
                 employee.get(countEmployee).getChildren().add(textInput[i]);
                 employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
             }
+            employee.get(countEmployee).getChildren().add(tittle);
+            employee.get(countEmployee).getChildren().add(textArea);
             employee.get(countEmployee).getChildren().add(description);
             employee.get(countEmployee).getChildren().add(buttonNext);
             employee.get(countEmployee).getChildren().add(buttonPrevious);
