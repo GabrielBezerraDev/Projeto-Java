@@ -2,6 +2,11 @@
  * Empty Stylesheet file.
  */
 
+.posto:hover{
+    -fx-text-fill:red;
+    -fx-cursor:hand;
+}
+
 .button{
     -fx-background-color: red;
 }

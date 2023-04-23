@@ -36,7 +36,7 @@ public class FXMLController implements Initializable {
     private  ImageView image;
     
     @FXML
-    private Pane programador, supervisionar;
+    private Pane programador, supervisionar, cadastroPessoa, cadastroProjeto, main;
     
     @FXML
    private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
@@ -83,7 +83,6 @@ public class FXMLController implements Initializable {
                 if(realese == false){
                     Platform.runLater(() -> {
                           animation.setText(elemento.substring(0, elemento.length()-1));
-                          System.out.println("Work 1");
                           realese = true;
                           teste();
                      });
@@ -91,7 +90,6 @@ public class FXMLController implements Initializable {
                 else{
                           Platform.runLater(() -> {
                             animation.setText(elemento);
-                            System.out.println("Work 0");
                             realese=false;
                             teste();
                      });
@@ -121,12 +119,25 @@ public class FXMLController implements Initializable {
         Parent root = loader.load();
         Scene scene = painel.getScene();
         Stage stage = (Stage) painel.getScene().getWindow();
-        stage.setResizable(true);
+        stage.setMinHeight(500); 
         stage.setScene(scene);
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         scene.setRoot(root);
     }
     
+    @FXML
+    public void cadastrado(){
+        cadastroPessoa.setVisible(false);
+        cadastroProjeto.setVisible(true);
+    }
+    
+    public void definido(){
+        System.out.println("Teste");
+        cadastroProjeto.setVisible(false);
+        Pane employee = new Pane();
+        employee.setPrefSize(356,361);
+        main.getChildren().add(employee);
+    }
            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
