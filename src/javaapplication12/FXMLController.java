@@ -19,18 +19,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class FXMLController implements Initializable {
-
+    
+    private int countEmployee = 0;
+    
+    @FXML
+     List<Pane> employee = new ArrayList<>();
+    
     @FXML
     private GridPane painel;
     
     @FXML
     private Label animation;
+    
+    @FXML
+    private TextField amountEmployee;
     
     @FXML
     private  ImageView image;
@@ -132,21 +143,42 @@ public class FXMLController implements Initializable {
     }
     
     public void definido(){
-        System.out.println("Teste");
-        cadastroProjeto.setVisible(false);
-        Pane employee = new Pane();
-        employee.setPrefSize(356,361);
-        main.getChildren().add(employee);
+        if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
+            cadastroProjeto.setVisible(false);
+            System.out.println("Verdadeiro");
+            System.out.println( Integer.parseInt(amountEmployee.getText()));
+            employee.add(new Pane());
+            employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
+            employee.get(countEmployee).setPrefSize(356,361);
+            main.getChildren().add(employee.get(countEmployee));
+            Label test = new Label();
+            test.setLayoutX(28);
+            test.setLayoutY(85);
+            test.setText(String.format("employee%d", countEmployee));
+            Button button = new Button();
+            button.setText("Próximo");
+            button.setLayoutX(269);
+            button.setLayoutY(307);
+            button.setOnMouseClicked((MouseEvent event) -> {
+                definido();
+            });
+            employee.get(countEmployee).getChildren().add(button);
+            employee.get(countEmployee).getChildren().add(test);
+            if(countEmployee != 0){
+                  employee.get(countEmployee-1).setVisible(false);
+            }
+            countEmployee++;
+        }
     }
            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          Platform.runLater(() -> {
-                Scene scene = painel.getScene();
-                scene.setOnMouseClicked(event -> {
-                Node teste = (Node) event.getTarget();
-                System.out.println(teste.getId());
-        });
+//                Scene scene = painel.getScene();
+//                scene.setOnMouseClicked(event -> {
+//                Node teste = (Node) event.getTarget();
+//                System.out.println(teste.getId());
+//        });
                 supervisionar.setVisible(false);
                 programador.setVisible(false);
                 animation();
