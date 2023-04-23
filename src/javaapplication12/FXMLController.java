@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 
 public class FXMLController implements Initializable {
     
+    private boolean visibleProject = true;
     private int countEmployee = 0;
     
     @FXML
@@ -145,17 +146,23 @@ public class FXMLController implements Initializable {
     @FXML
     public void next(){
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
+            int layoutX = 0;
+            int layoutY = 0;
+            Label[] labelsEmployees = new Label[6];
+            TextField[] textInput = new TextField[6];
+            Label description = new Label();
+            String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
             cadastroProjeto.setVisible(false);
+            visibleProject = false;
             System.out.println("Verdadeiro");
             System.out.println( Integer.parseInt(amountEmployee.getText()));
             employee.add(new Pane());
             employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
-            employee.get(countEmployee).setPrefSize(356,361);
+            employee.get(countEmployee).setPrefSize(356,328);
             main.getChildren().add(employee.get(countEmployee));
-            Label test = new Label();
-            test.setLayoutX(28);
-            test.setLayoutY(85);
-            test.setText(String.format("employee%d", countEmployee));
+            description.setLayoutX(27);
+            description.setLayoutY(187);
+            description.setText("Descrição da função");
             Button buttonPrevious = new Button();
             Button buttonNext = new Button();
             buttonPrevious.setText("Anterior");
@@ -170,9 +177,23 @@ public class FXMLController implements Initializable {
             buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
                 previous();
             });
+            for (int i = 0; i < labelsEmployees.length; i++){
+                textInput[i] = new TextField();
+                labelsEmployees[i] = new Label();
+                layoutY += 50;
+                if(i == 0 || i == 3 ) layoutY = 0;
+                if(i > 2) layoutX = 165;
+                textInput[i].setLayoutX(27+layoutX);
+                textInput[i].setLayoutY(57+layoutY);
+                labelsEmployees[i].setLayoutX(27+layoutX);
+                labelsEmployees[i].setLayoutY(40+layoutY);
+                labelsEmployees[i].setText(campos[i]);
+                employee.get(countEmployee).getChildren().add(textInput[i]);
+                employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
+            }
+            employee.get(countEmployee).getChildren().add(description);
             employee.get(countEmployee).getChildren().add(buttonNext);
             employee.get(countEmployee).getChildren().add(buttonPrevious);
-            employee.get(countEmployee).getChildren().add(test);
             if(countEmployee != 0){
                   employee.get(countEmployee-1).setVisible(false);
             }
@@ -182,11 +203,19 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void previous(){
-        countEmployee-=1;
-        employee.get(countEmployee).setVisible(false);
-        employee.remove(countEmployee);
-        if(countEmployee == 0){
+        if(!employee.isEmpty()){
+            countEmployee-=1;
+            employee.get(countEmployee).setVisible(false);
+            employee.remove(countEmployee);
+        }
+        if(countEmployee == 0 && visibleProject == false){
             cadastroProjeto.setVisible(true);
+            visibleProject = true;
+            return;
+        }
+        else if(employee.isEmpty()){
+            cadastroProjeto.setVisible(false);
+            cadastroPessoa.setVisible(true);
             return;
         }
         employee.get(countEmployee-1).setVisible(true);
