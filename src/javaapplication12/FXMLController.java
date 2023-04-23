@@ -142,7 +142,8 @@ public class FXMLController implements Initializable {
         cadastroProjeto.setVisible(true);
     }
     
-    public void definido(){
+    @FXML
+    public void next(){
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
             cadastroProjeto.setVisible(false);
             System.out.println("Verdadeiro");
@@ -155,14 +156,22 @@ public class FXMLController implements Initializable {
             test.setLayoutX(28);
             test.setLayoutY(85);
             test.setText(String.format("employee%d", countEmployee));
-            Button button = new Button();
-            button.setText("Próximo");
-            button.setLayoutX(269);
-            button.setLayoutY(307);
-            button.setOnMouseClicked((MouseEvent event) -> {
-                definido();
+            Button buttonPrevious = new Button();
+            Button buttonNext = new Button();
+            buttonPrevious.setText("Anterior");
+            buttonPrevious.setLayoutX(30);
+            buttonPrevious.setLayoutY(307);
+            buttonNext.setText("Próximo");
+            buttonNext.setLayoutX(269);
+            buttonNext.setLayoutY(307);
+            buttonNext.setOnMouseClicked((MouseEvent event) -> {
+                next();
             });
-            employee.get(countEmployee).getChildren().add(button);
+            buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
+                previous();
+            });
+            employee.get(countEmployee).getChildren().add(buttonNext);
+            employee.get(countEmployee).getChildren().add(buttonPrevious);
             employee.get(countEmployee).getChildren().add(test);
             if(countEmployee != 0){
                   employee.get(countEmployee-1).setVisible(false);
@@ -170,15 +179,27 @@ public class FXMLController implements Initializable {
             countEmployee++;
         }
     }
-           
+    
+    @FXML
+    public void previous(){
+        countEmployee-=1;
+        employee.get(countEmployee).setVisible(false);
+        employee.remove(countEmployee);
+        if(countEmployee == 0){
+            cadastroProjeto.setVisible(true);
+            return;
+        }
+        employee.get(countEmployee-1).setVisible(true);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          Platform.runLater(() -> {
-//                Scene scene = painel.getScene();
-//                scene.setOnMouseClicked(event -> {
-//                Node teste = (Node) event.getTarget();
-//                System.out.println(teste.getId());
-//        });
+                Scene scene = painel.getScene();
+                scene.setOnMouseClicked(event -> {
+                Node teste = (Node) event.getTarget();
+                System.out.println(teste.getId());
+        });
                 supervisionar.setVisible(false);
                 programador.setVisible(false);
                 animation();
