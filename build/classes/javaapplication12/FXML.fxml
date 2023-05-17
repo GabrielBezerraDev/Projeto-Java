@@ -23,7 +23,7 @@
     <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <ImageView fx:id="image" fitHeight="419.0" fitWidth="520.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <ImageView fx:id="image" fitHeight="419.0" fitWidth="520.0" pickOnBounds="true" preserveRatio="true" style="visibility: none;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
             <Image url="@business-image.jpg" />
          </image>
@@ -46,10 +46,10 @@
                   <TextField layoutX="192.0" layoutY="164.0" />
                   <TextField layoutX="192.0" layoutY="214.0" />
                   <Button layoutX="240.0" layoutY="262.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Entrar" textFill="WHITE" />
-                  <TextFlow layoutX="174.0" layoutY="299.0" prefHeight="25.0" prefWidth="195.0">
+                  <TextFlow layoutX="159.0" layoutY="296.0" prefHeight="30.0" prefWidth="248.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Não ossui uma conta?" />
-                        <Text onMouseClicked="#cadastro" strokeType="OUTSIDE" strokeWidth="0.0" text=" Cadastre-se!" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Não possui uma conta?" wrappingWidth="163.56494140625" />
+                        <Text onMouseClicked="#cadastro" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="linkCadastro" text=" Cadastre-se!" />
                      </children>
                   </TextFlow>
                </children>

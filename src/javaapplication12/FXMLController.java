@@ -73,6 +73,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void animation(){
+        animation.setStyle("-fx-font-size: 25px;-fx-text-fill: #f0361c;-fx-font-weight: bold;");
         Timer timer = new Timer();
         TimerTask task = new TimerTask(){
             @Override
@@ -80,7 +81,7 @@ public class FXMLController implements Initializable {
                 String[] teste = texto.split("");
                 elemento += teste[i];
                  Platform.runLater(() -> {
-                     animation.setText(elemento);
+                     animation.setText(elemento);               
                  });
                  i++;
                 if(i != texto.length() ) animation();
@@ -90,7 +91,7 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
-    public void teste(){
+    public void ponto(){
         Timer timer = new Timer();
         TimerTask task;
         task = new TimerTask( ){
@@ -100,14 +101,14 @@ public class FXMLController implements Initializable {
                     Platform.runLater(() -> {
                           animation.setText(elemento.substring(0, elemento.length()-1));
                           realese = true;
-                          teste();
+                          ponto();
                      });
                 }
                 else{
                           Platform.runLater(() -> {
                             animation.setText(elemento);
                             realese=false;
-                            teste();
+                            ponto();
                      });
                 }
             }
@@ -147,7 +148,6 @@ public class FXMLController implements Initializable {
         cadastroPessoa.setVisible(false);
         cadastroProjeto.setVisible(true);
     }
-    //X = 381 e Y = 137
     @FXML
     public void next(){
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
@@ -191,7 +191,7 @@ public class FXMLController implements Initializable {
                 labelsEmployees[i] = new Label();
                 layoutY += 50;
                 if(i == 0 || i == 3 ) layoutY = 0;
-                if(i > 2) layoutX = 165;
+                if(i > 2) layoutX = 178;
                 textInput[i].setLayoutX(27+layoutX);
                 textInput[i].setLayoutY(57+layoutY);
                 labelsEmployees[i].setLayoutX(27+layoutX);
@@ -246,7 +246,7 @@ public class FXMLController implements Initializable {
                 supervisionar.setVisible(false);
                 programador.setVisible(false);
                 animation();
-                teste();
+                ponto();
     });
     }    
     
