@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package javaapplication12;
+package main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +73,7 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void animation(){
-        animation.setStyle("-fx-font-size: 25px;-fx-text-fill: #f0361c;-fx-font-weight: bold;");
+        animation.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
         Timer timer = new Timer();
         TimerTask task = new TimerTask(){
             @Override
@@ -231,7 +231,7 @@ public class FXMLController implements Initializable {
             tittleDescription.setText("Coodernador");
             return;
         }
-       tittleDescription.setText(String.format("%dºmembro:", countEmployee));
+        tittleDescription.setText(String.format("%dºmembro:", countEmployee));
         employee.get(countEmployee-1).setVisible(true);
     }
     
