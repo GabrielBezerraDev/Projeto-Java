@@ -1,0 +1,22 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "NewFXMain",
+            "request": "launch",
+            "mainClass": "main.NewFXMain",
+            "projectName": "Projeto-Java_79618c5b",
+            "vmArgs": "--module-path /home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}

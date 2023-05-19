@@ -29,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
 public class FXMLController implements Initializable {
     
     private boolean visibleProject = true;
