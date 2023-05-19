@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import accountsusers.Users;
+
 
 
 public class NewFXMain extends Application {
@@ -26,9 +26,6 @@ public class NewFXMain extends Application {
         stage.setMinHeight(345); 
         stage.setResizable(false); 
         stage.setScene(scene);
-        String cpf = "16668051731";
-        Users user = new Users(null,null,cpf,null,null,null);
-        user.validacaoCpf();
         stage.show();
     } 
 

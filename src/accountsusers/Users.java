@@ -10,9 +10,11 @@ import java.util.Arrays;
  *
  * @author Jonathan
  */
-public class Users {
+
+abstract class Users {
     private String nome, sobreNome, cpf, email, senha, confirmaSenha;
-    public Users (String nome, String sobreNome, String cpf, String email, String senha, String confirmaSenha){
+    
+    protected Users (String nome, String sobreNome, String cpf, String email, String senha, String confirmaSenha){
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.cpf = cpf;
@@ -46,12 +48,56 @@ public class Users {
         return resultado;
     }
 
-    public boolean validacaoCpf(){
-        boolean resultado = false;
+    protected boolean validacaoCpf(){
+        boolean resultado = false, validaPrimeiroDigito = false, validaSegundoDigito = false;
+        int cont1 = 10,cont2 = 11, soma1 = 0, soma2 = 0;
         int[] primeiroCalculoCpf = new int[9];
+        int[] segundoCalculoCpf = new int[10];
+
+        int[] cpf = new int[11];
+        for(int i = 0; i < cpf.length; i++){
+            cpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
+        }
+        
         for(int i = 0; i < primeiroCalculoCpf.length; i++){
             primeiroCalculoCpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
+
+            primeiroCalculoCpf[i] = primeiroCalculoCpf[i]*cont1;
+            cont1--;
+            
+            soma1 = soma1 + primeiroCalculoCpf[i];
         }
+
+
+        if((soma1 % 11 < 2) && (cpf[9] == 0)){
+            validaPrimeiroDigito = true;
+        }
+        
+        else if ((soma1 % 11 > 2) && ((cpf[9]) == (11 - soma1 % 11))){
+            validaPrimeiroDigito = true;
+        }
+
+        for(int i = 0; i < segundoCalculoCpf.length; i++){
+            segundoCalculoCpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
+
+            segundoCalculoCpf[i] = segundoCalculoCpf[i]*cont2;
+            cont2--;
+
+            soma2 = soma2 + segundoCalculoCpf[i];
+        }
+
+        if((soma2 % 11 < 2) && (cpf[10] == 0)){
+            validaSegundoDigito = true;
+        }
+
+        else if ((soma2 % 11 >2) && ((cpf[10]) == (11 - soma2 % 11))){
+            validaSegundoDigito = true;
+        }
+
+        if(validaPrimeiroDigito && validaSegundoDigito){
+            resultado = true;
+        }
+
         return resultado;
     }
 
