@@ -25,7 +25,7 @@
       <Pane fx:id="main" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Text fill="RED" layoutX="36.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos com o asterisco são obrigatórios" wrappingWidth="284.13671875" />
-            <Pane fx:id="cadastroProjeto" layoutY="21.0" prefHeight="328.0" prefWidth="356.0" style="visibility: none;">
+            <Pane fx:id="cadastroProjeto" layoutY="21.0" prefHeight="328.0" prefWidth="356.0" style="visibility: hidden;">
                <children>
                   <TextField layoutX="28.0" layoutY="53.0" />
                   <TextField fx:id="amountEmployee" layoutX="28.0" layoutY="102.0" prefHeight="25.0" prefWidth="41.0" />
@@ -37,21 +37,21 @@
                   <Button layoutX="269.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#next" text="Próximo" />
                </children>
             </Pane>
-            <Pane fx:id="cadastroPessoa" layoutY="31.0" prefHeight="328.0" prefWidth="356.0" style="visibility: hidden;">
+            <Pane fx:id="cadastroPessoa" layoutY="31.0" prefHeight="328.0" prefWidth="356.0" style="visibility: none;">
                <children>
                   <Label layoutX="27.0" layoutY="40.0" prefHeight="17.0" prefWidth="81.0" text="Nome*" />
-                  <TextField layoutX="27.0" layoutY="57.0" prefHeight="3.0" prefWidth="133.0" />
-                  <Label layoutX="27.0" layoutY="90.0" prefHeight="17.0" prefWidth="74.0" text="Sobrenome*" />
-                  <TextField layoutX="27.0" layoutY="107.0" prefHeight="25.0" prefWidth="133.0" />
+                  <TextField fx:id="nomeCoordenador" layoutX="27.0" layoutY="57.0" prefHeight="3.0" prefWidth="133.0" />
+                  <Label layoutX="27.0" layoutY="90.0" prefHeight="17.0" prefWidth="93.0" text="Sobrenome*" />
+                  <TextField fx:id="sobrenomeCoordenador" layoutX="27.0" layoutY="107.0" prefHeight="25.0" prefWidth="133.0" />
                   <Label layoutX="27.0" layoutY="138.0" prefHeight="17.0" prefWidth="105.0" text="CPF*" />
-                  <TextField layoutX="27.0" layoutY="157.0" prefHeight="3.0" prefWidth="133.0" />
+                  <TextField fx:id="cpfCoordenador" layoutX="27.0" layoutY="157.0" prefHeight="3.0" prefWidth="133.0" />
                   <Label layoutX="191.0" layoutY="90.0" prefHeight="17.0" prefWidth="105.0" text="Senha*" />
-                  <TextField layoutX="191.0" layoutY="107.0" prefHeight="3.0" prefWidth="133.0" />
+                  <TextField fx:id="senhaCoordenador" layoutX="191.0" layoutY="107.0" prefHeight="3.0" prefWidth="133.0" />
                   <Label layoutX="191.0" layoutY="138.0" prefHeight="17.0" prefWidth="133.0" text="Confirmar senha*" />
-                  <TextField layoutX="191.0" layoutY="157.0" prefHeight="25.0" prefWidth="133.0" />
+                  <TextField fx:id="confirmarSenhaCoordenador" layoutX="191.0" layoutY="157.0" prefHeight="25.0" prefWidth="133.0" />
                   <Button layoutX="26.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#cadastrado" text="Próximo" />
                   <Label layoutX="191.0" layoutY="40.0" prefHeight="17.0" prefWidth="133.0" text="Email*" />
-                  <TextField layoutX="191.0" layoutY="57.0" prefHeight="25.0" prefWidth="133.0" />
+                  <TextField fx:id="emailCoordenador" layoutX="191.0" layoutY="57.0" prefHeight="25.0" prefWidth="133.0" />
                </children>
             </Pane>
          </children>

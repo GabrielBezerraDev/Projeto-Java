@@ -28,12 +28,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import accountsusers.*;
 
 
 public class FXMLController implements Initializable {
     
+    List<Coordenador> coordenador = new ArrayList<>();
     private boolean visibleProject = true;
     private int countEmployee = 0;
+    private int i = 0;
+    
     
     @FXML
      List<Pane> employee = new ArrayList<>();
@@ -45,7 +49,7 @@ public class FXMLController implements Initializable {
     private Label animation;
     
     @FXML
-    private TextField amountEmployee;
+    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador;
     
     @FXML
     private Text tittleDescription;
@@ -57,10 +61,7 @@ public class FXMLController implements Initializable {
     
     @FXML
    private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
-    
-    @FXML
-    private int i = 0;
-    
+   
     @FXML
     boolean realese = false, end = false;
     
@@ -145,12 +146,30 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void cadastrado(){
+        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
+        coordenador.get(coordenador.size()-1).showCoordenador();
+        if(!coordenador.get(coordenador.size()-1).validacao()) return;
         tittleDescription.setText("Projeto");
         cadastroPessoa.setVisible(false);
         cadastroProjeto.setVisible(true);
     }
+    
     @FXML
     public void next(){
+        if(countEmployee > 0){
+            TextField [] dadosMembros = new TextField[6];
+            int countDados = 0;
+            for(int i = 0; i < (employee.get(countEmployee-1).getChildren()).size(); i++){
+                if(employee.get(countEmployee-1).getChildren().get(i) instanceof TextField){
+                        dadosMembros[countDados] = (TextField) employee.get(countEmployee-1).getChildren().get(i);
+                        countDados++;
+                }
+            }
+            coordenador.get(coordenador.size()-1).criarMembros(dadosMembros[0].getText(), dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText());
+           if(!coordenador.get(coordenador.size()-1).membros.get(coordenador.get(coordenador.size()-1).membros.size()-1).validacao()) return;
+                System.out.printf("%nTamanho da Lista de coordenadores: %d%n",coordenador.size());
+                System.out.printf("%nTamanho da Lista de membros: %d%n",coordenador.get(coordenador.size()-1).membros.size());
+        }
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
             int layoutX = 0;
             int layoutY = 0;
@@ -215,6 +234,9 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void previous(){
+        if(countEmployee > 0){
+            coordenador.get(coordenador.size()-1).membros.remove(coordenador.get(coordenador.size()-1).membros.size()-1);
+        }
         if(!employee.isEmpty()){
             countEmployee-=1;
             employee.get(countEmployee).setVisible(false);

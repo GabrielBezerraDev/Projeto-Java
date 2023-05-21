@@ -8,6 +8,8 @@ package accountsusers;
  *
  * @author gabrielbezerra
  */
-public class Membros {
-    
+public class Membros extends Users{
+    public Membros(String nome, String sobrenome, String cpf, String email, String senha, String confirmarSenha){
+        super(nome,sobrenome,cpf,email,senha,confirmarSenha);
+    }
 }
