@@ -43,7 +43,7 @@ public class FXMLController implements Initializable {
      List<Pane> employee = new ArrayList<>();
     
     @FXML
-    private GridPane painel;
+    private GridPane painel = new GridPane();
     
     @FXML
     private Label animation;
@@ -64,6 +64,9 @@ public class FXMLController implements Initializable {
    
     @FXML
     boolean realese = false, end = false;
+    
+    @FXML
+    private static Scene scene;
     
     @FXML
     public void supervisor(){
@@ -136,7 +139,7 @@ public class FXMLController implements Initializable {
     public void cadastro() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML1.fxml"));
         Parent root = loader.load();
-        Scene scene = painel.getScene();
+        scene = painel.getScene();
         Stage stage = (Stage) painel.getScene().getWindow();
         stage.setMinHeight(500); 
         stage.setScene(scene);
@@ -145,10 +148,14 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
-    public void cadastrado(){
+    public void cadastrado() throws IOException{
+        PopUpController popUp = new PopUpController();
         coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
         coordenador.get(coordenador.size()-1).showCoordenador();
-        if(!coordenador.get(coordenador.size()-1).validacao()) return;
+        if(!coordenador.get(coordenador.size()-1).validacao()) {
+            popUp.popUp();
+            return;
+        }
         tittleDescription.setText("Projeto");
         cadastroPessoa.setVisible(false);
         cadastroProjeto.setVisible(true);
@@ -260,17 +267,22 @@ public class FXMLController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         Platform.runLater(() -> {
-                Scene scene = painel.getScene();
-                scene.setOnMouseClicked(event -> {
-                Node teste = (Node) event.getTarget();
-                System.out.println(teste.getId());
-        });
-                supervisionar.setVisible(false);
-                programador.setVisible(false);
-                animation();
-                ponto();
-    });
+//        try{
+//                 Platform.runLater(() -> {
+//                scene = painel.getScene();
+//                scene.setOnMouseClicked(event -> {
+//                Node teste = (Node) event.getTarget();
+//                System.out.println(teste.getId());
+//        });
+//                supervisionar.setVisible(false);
+//                programador.setVisible(false);
+//                animation();
+//                ponto();
+//        });
+//        }
+//        finally{
+//           System.out.println("Próxima tela");
+//        }
     }    
     
 }

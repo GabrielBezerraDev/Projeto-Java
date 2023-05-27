@@ -22,7 +22,7 @@ abstract class Users {
 
     public boolean validacao(){
         boolean resultado = false;
-        if(validacaoSenha() && validacaoEmail()){
+        if(validacaoSenha() && validacaoEmail() && validacaoCpf()){
             resultado = true;
         }
 
