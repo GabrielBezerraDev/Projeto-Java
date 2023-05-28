@@ -13,6 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import java.util.List;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -20,16 +24,21 @@ import javafx.stage.Stage;
  */
 public class PopUpController {
         
+        public  static String erros;
         @FXML
         static private Stage stage;
         @FXML
         private Scene scene;
-        @FXML
-        private Button buttonClose;
         
+        @FXML
         public void popUp() throws IOException {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("popup.fxml"));
             Parent root = fxmlLoader.load();
+            Pane pane = (Pane) root.getChildrenUnmodifiable().get(1);
+            System.out.println(pane.getChildren().get(2));
+            Label text = (Label) pane.getChildren().get(2);
+            text.setText(erros);
+            text.setStyle("-fx-font-weight: bold;");
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
             stage = new Stage();
@@ -39,15 +48,17 @@ public class PopUpController {
             stage.setScene(scene);
             stage.show();
     } 
-
+       
+       
         public void fechar(){
             stage.close();
-            buttonClose.setText("FOI");
         }
         
         @FXML
         public void initialize(URL url, ResourceBundle rb) {
+            Platform.runLater(() -> {
 
+            });
         }
         
 }

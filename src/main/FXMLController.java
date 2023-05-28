@@ -149,10 +149,11 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void cadastrado() throws IOException{
-        PopUpController popUp = new PopUpController();
         coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
         coordenador.get(coordenador.size()-1).showCoordenador();
+        PopUpController popUp = new PopUpController();
         if(!coordenador.get(coordenador.size()-1).validacao()) {
+            PopUpController.erros = coordenador.get(coordenador.size()-1).erros;
             popUp.popUp();
             return;
         }
