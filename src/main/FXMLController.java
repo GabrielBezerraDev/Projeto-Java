@@ -29,11 +29,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import accountsusers.*;
+import project.Project;
 
 
 public class FXMLController implements Initializable {
     
     List<Coordenador> coordenador = new ArrayList<>();
+    private List<Project> project = new ArrayList<>();
     private boolean visibleProject = true;
     private int countEmployee = 0;
     private int i = 0;
@@ -153,7 +155,7 @@ public class FXMLController implements Initializable {
         coordenador.get(coordenador.size()-1).showCoordenador();
         PopUpController popUp = new PopUpController();
         if(!coordenador.get(coordenador.size()-1).validacao()) {
-            PopUpController.erros = coordenador.get(coordenador.size()-1).erros;
+            popUp.erros = coordenador.get(coordenador.size()-1).erros;
             popUp.popUp();
             return;
         }

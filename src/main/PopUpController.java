@@ -24,7 +24,7 @@ import javafx.scene.layout.Pane;
  */
 public class PopUpController {
         
-        public  static String erros;
+        public  String erros;
         @FXML
         static private Stage stage;
         @FXML

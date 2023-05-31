@@ -15,7 +15,7 @@ abstract class Users {
     protected String[] dadosUser;
     public String erros;
     protected Users (String nome, String sobrenome, String cpf, String email, String senha, String confirmaSenha){
-        this.erros = new String();
+        this.erros = "";
         this.dadosUser = new String[]{nome,sobrenome,cpf,email,senha,confirmaSenha};
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -27,7 +27,8 @@ abstract class Users {
 
     public boolean validacao(){
         boolean resultado = false;
-        boolean[] validando = {validacaoCampos(), validacaoEmail(), validacaoCpf(),validacaoSenha()};
+        if(!validacaoCampos()) return resultado;
+        boolean[] validando = {validacaoEmail(), validacaoCpf(),validacaoSenha()};
         for(int i = 0; i < validando.length; i++){
             if(validando[i] && i == validando.length-1){
                 resultado = true;
@@ -62,11 +63,13 @@ abstract class Users {
     }
     
     protected boolean validacaoSenha(){
+        System.out.println("ÉEEEE FDP");
         boolean resultado = false;
-        if(this.senha.length() > 4 && this.senha.equals(this.confirmaSenha)){
+        if(this.senha.length() >= 4 && this.senha.equals(this.confirmaSenha)){
             resultado = true;
+            return resultado;
         }
-        if(!resultado && this.senha.length() > 4){
+        if(!resultado && this.senha.length() < 4){
             this.erros = "O tamanho da sua senha deve ser maior do que 4 caracteres.";
         }
         else{
@@ -88,6 +91,7 @@ abstract class Users {
 
     protected boolean validacaoCpf(){
         boolean resultado = false, validaPrimeiroDigito = false, validaSegundoDigito = false;
+        if(this.cpf.length() != 11) return resultado;
         int cont1 = 10,cont2 = 11, soma1 = 0, soma2 = 0;
         int[] primeiroCalculoCpf = new int[9];
         int[] segundoCalculoCpf = new int[10];
@@ -95,6 +99,7 @@ abstract class Users {
         int[] cpf = new int[11];
         for(int i = 0; i < cpf.length; i++){
             cpf[i] = Integer.parseInt(this.cpf.substring(i, i+1));
+            System.out.println(Integer.parseInt(this.cpf.substring(i, i+1)));
         }
         
         for(int i = 0; i < primeiroCalculoCpf.length; i++){
