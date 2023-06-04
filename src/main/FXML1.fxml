@@ -28,7 +28,7 @@
    <children>
       <Pane fx:id="main" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <ScrollPane fx:id="cadastroProjeto" layoutX="-21.0" prefHeight="361.0" prefWidth="399.0" style="visibility: hidden;">
+            <ScrollPane fx:id="cadastroProjeto" layoutX="-21.0" prefHeight="361.0" prefWidth="399.0" style="visibility: none;">
                <content>
                   <Pane prefHeight="560.0" prefWidth="378.0" style="visibility: none;">
                      <children>
@@ -49,7 +49,7 @@
                   </Pane>
                </content>
             </ScrollPane>
-            <ScrollPane fx:id="cadastroPessoa" layoutX="-20.0" prefHeight="361.0" prefWidth="398.0" style="visibility: none;">
+            <ScrollPane fx:id="cadastroPessoa" layoutX="-20.0" prefHeight="361.0" prefWidth="398.0" style="visibility: hidden;">
                <content>
                   <Pane prefHeight="509.0" prefWidth="382.0" style="visibility: none;">
                      <children>

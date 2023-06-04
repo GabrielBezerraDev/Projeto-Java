@@ -29,6 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import accountsusers.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import project.Project;
@@ -162,10 +164,25 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void cadastrado() throws IOException{
-        project.add(new Project(nomeProjeto.getText(), descricaoProjeto.getText()));
-        project.get(project.size()-1).showDataProjetc();
+        String formattedDateInit = "";       
+        String formattedDateEnd = "";
         System.out.println(inicioProjeto.getValue());
         System.out.println(fimProjeto.getValue());
+        LocalDate inicio = inicioProjeto.getValue();
+        LocalDate fim = fimProjeto.getValue();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if(inicioProjeto.getValue() != null) formattedDateInit = inicio.format(formatter);       
+        if(fimProjeto.getValue() != null) formattedDateEnd = fim.format(formatter);
+        project.add(new Project(nomeProjeto.getText(), descricaoProjeto.getText(), formattedDateInit, formattedDateEnd));
+        if(!project.get(project.size()-1).validation()){
+            PopUpController popUp = new PopUpController();
+            popUp.erros = Project.erros;
+            popUp.popUp();
+            return;
+        }
+        project.get(project.size()-1).showDataProjetc();
+        System.out.println(formattedDateInit);
+        System.out.println(formattedDateEnd);
 //        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
 //        coordenador.get(coordenador.size()-1).showCoordenador();
 //        PopUpController popUp = new PopUpController();
@@ -190,10 +207,10 @@ public class FXMLController implements Initializable {
                         countDados++;
                 }
             }
-            coordenador.get(coordenador.size()-1).criarMembros(dadosMembros[0].getText(), dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText());
-           if(!coordenador.get(coordenador.size()-1).membros.get(coordenador.get(coordenador.size()-1).membros.size()-1).validacao()) return;
-                System.out.printf("%nTamanho da Lista de coordenadores: %d%n",coordenador.size());
-                System.out.printf("%nTamanho da Lista de membros: %d%n",coordenador.get(coordenador.size()-1).membros.size());
+//            coordenador.get(coordenador.size()-1).criarMembros(dadosMembros[0].getText(), dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText());
+//           if(!coordenador.get(coordenador.size()-1).membros.get(coordenador.get(coordenador.size()-1).membros.size()-1).validacao()) return;
+//                System.out.printf("%nTamanho da Lista de coordenadores: %d%n",coordenador.size());
+//                System.out.printf("%nTamanho da Lista de membros: %d%n",coordenador.get(coordenador.size()-1).membros.size());
         }
         if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
             int layoutX = 0;

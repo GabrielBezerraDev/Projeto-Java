@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package accountsusers;
+import interfaces.Valida;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -10,13 +11,12 @@ import java.util.ArrayList;
  * @author Jonathan
  */
 
-abstract class Users {
-    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha;
+public class Users implements Valida{
+    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim;
     protected String[] dadosUser;
-    public String erros;
-    protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha){
-        this.erros = "";
-        this.dadosUser = new String[]{nome,sobrenome,cpf,email,senha,confirmaSenha};
+    public static String erros;
+    protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim){
+        this.dadosUser = new String[]{nome,sobrenome,cpf,contato,email,senha,confirmaSenha,genero, inicio, fim};
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -24,11 +24,14 @@ abstract class Users {
         this.email = email;
         this.senha = senha;
         this.confirmaSenha = confirmaSenha;
+        this.genero = genero;
+        this.inicio = inicio;
+        this.fim = fim;
     }
 
     public boolean validacao(){
         boolean resultado = false;
-        if(!validacaoCampos()) return resultado;
+        if(!validaCampus(this.dadosUser)) return resultado;
         boolean[] validando = {validacaoEmail(), validacaoCpf(),validacaoSenha()};
         for(int i = 0; i < validando.length; i++){
             if(validando[i] && i == validando.length-1){
@@ -41,30 +44,29 @@ abstract class Users {
         return resultado;
     }
     
-    public boolean validacaoCampos(){
-        String campo = "";
-        boolean resultado = false;
-         for(int i = 0; i < this.dadosUser.length; i++){
-             if(this.dadosUser[i].isEmpty()) {
-                 switch(i){
-                     case 0: campo = "Nome"; break;
-                     case 1: campo = "Sobrenome"; break;
-                     case 2: campo = "cpf"; break;
-                     case 3: campo = "Email"; break;
-                     case 4: campo = "Senha"; break;
-                     case 5: campo = "Confirmar senha"; break;
-                 }
-                 this.erros = String.format("O campo \"%s\" está faltando.",campo);
-                 System.out.println("Campo vazio");
-                 break;
-             }
-             if(!this.dadosUser[i].isEmpty() && i == this.dadosUser.length-1) resultado = true;
-         }
-         return resultado;
-    }
+//    public boolean validacaoCampos(){
+//        String campo = "";
+//        boolean resultado = false;
+//         for(int i = 0; i < this.dadosUser.length; i++){
+//             if(this.dadosUser[i].isEmpty()) {
+//                 switch(i){
+//                     case 0: campo = "Nome"; break;
+//                     case 1: campo = "Sobrenome"; break;
+//                     case 2: campo = "cpf"; break;
+//                     case 3: campo = "Email"; break;
+//                     case 4: campo = "Senha"; break;
+//                     case 5: campo = "Confirmar senha"; break;
+//                 }
+//                 this.erros = String.format("O campo \"%s\" está faltando.",campo);
+//                 System.out.println("Campo vazio");
+//                 break;
+//             }
+//             if(!this.dadosUser[i].isEmpty() && i == this.dadosUser.length-1) resultado = true;
+//         }
+//         return resultado;
+//    }
     
     protected boolean validacaoSenha(){
-        System.out.println("ÉEEEE FDP");
         boolean resultado = false;
         if(this.senha.length() >= 4 && this.senha.equals(this.confirmaSenha)){
             resultado = true;

@@ -55,22 +55,22 @@
                      <children>
                         <Pane layoutX="18.0" layoutY="23.0" prefHeight="302.0" prefWidth="356.0" style="-fx-border-color: black;">
                            <children>
-                              <Label layoutX="18.0" layoutY="35.0" prefHeight="17.0" prefWidth="81.0" text="Nome*" />
-                              <TextField fx:id="nomeCoordenador" layoutX="18.0" layoutY="60.0" prefHeight="3.0" prefWidth="133.0" />
-                              <Label layoutX="18.0" layoutY="95.0" prefHeight="17.0" prefWidth="93.0" text="Sobrenome*" />
-                              <TextField fx:id="sobrenomeCoordenador" layoutX="190.0" layoutY="120.0" prefHeight="25.0" prefWidth="133.0" />
-                              <Label layoutX="18.0" layoutY="155.0" prefHeight="17.0" prefWidth="105.0" text="CPF*" />
-                              <TextField fx:id="cpfCoordenador" layoutX="18.0" layoutY="240.0" prefHeight="3.0" prefWidth="133.0" />
-                              <Label layoutX="190.0" layoutY="95.0" prefHeight="17.0" prefWidth="105.0" text="Senha*" />
-                              <TextField fx:id="senhaCoordenador" layoutX="190.0" layoutY="60.0" prefHeight="3.0" prefWidth="133.0" />
-                              <Label layoutX="190.0" layoutY="155.0" prefHeight="17.0" prefWidth="133.0" text="Confirmar senha*" />
-                              <TextField fx:id="confirmarSenhaCoordenador" layoutX="190.0" layoutY="180.0" prefHeight="25.0" prefWidth="133.0" />
-                              <Label layoutX="18.0" layoutY="215.0" prefHeight="17.0" prefWidth="141.0" text="Número de contato*" />
-                              <TextField fx:id="cpfCoordenador1" layoutX="18.0" layoutY="180.0" prefHeight="3.0" prefWidth="133.0" />
-                              <Label layoutX="190.0" layoutY="35.0" prefHeight="17.0" prefWidth="133.0" text="Email*" />
-                              <TextField fx:id="emailCoordenador" layoutX="19.0" layoutY="120.0" prefHeight="25.0" prefWidth="133.0" />
-                              <ChoiceBox layoutX="190.0" layoutY="240.0" prefHeight="25.0" prefWidth="133.0" />
-                              <Label layoutX="190.0" layoutY="215.0" prefHeight="17.0" prefWidth="141.0" text="Gênero" />
+                              <Label fx:id="_nomeCoordenador" layoutX="18.0" layoutY="35.0" prefHeight="17.0" prefWidth="81.0" text="Nome*" />
+                              <TextField fx:id="nome_nomeCoordenador" layoutX="18.0" layoutY="60.0" prefHeight="3.0" prefWidth="133.0" />
+                              <Label fx:id="_sobrenomeCooder" layoutX="18.0" layoutY="95.0" prefHeight="17.0" prefWidth="93.0" text="Sobrenome*" />
+                              <TextField fx:id="senha_senhaCoordenador" layoutX="190.0" layoutY="120.0" prefHeight="25.0" prefWidth="133.0" />
+                              <Label fx:id="_cpfCoordenador" layoutX="18.0" layoutY="155.0" prefHeight="17.0" prefWidth="105.0" text="CPF*" />
+                              <TextField fx:id="contato_contatoCoordenador" layoutX="18.0" layoutY="240.0" prefHeight="3.0" prefWidth="133.0" />
+                              <Label fx:id="_senhaCoordenador" layoutX="190.0" layoutY="95.0" prefHeight="17.0" prefWidth="105.0" text="Senha*" />
+                              <TextField fx:id="email_emailCoordenador" layoutX="190.0" layoutY="60.0" prefHeight="3.0" prefWidth="133.0" />
+                              <Label fx:id="_confirmarSenhaCoordenador" layoutX="190.0" layoutY="155.0" prefHeight="17.0" prefWidth="133.0" text="Confirmar senha*" />
+                              <TextField fx:id="confirmar_confirmarSenhaCoordenador" layoutX="190.0" layoutY="180.0" prefHeight="25.0" prefWidth="133.0" />
+                              <Label fx:id="contatoCoordenador" layoutX="18.0" layoutY="215.0" prefHeight="17.0" prefWidth="141.0" text="Número de contato*" />
+                              <TextField fx:id="cpf_cpfCoordenador" layoutX="18.0" layoutY="180.0" prefHeight="3.0" prefWidth="133.0" />
+                              <Label fx:id="_emailCoordenador" layoutX="190.0" layoutY="35.0" prefHeight="17.0" prefWidth="133.0" text="Email*" />
+                              <TextField fx:id="sobrenome_sobrenomeCoordenador" layoutX="19.0" layoutY="120.0" prefHeight="25.0" prefWidth="133.0" />
+                              <ChoiceBox fx:id="genero_generoCoordenador" layoutX="190.0" layoutY="240.0" prefHeight="25.0" prefWidth="133.0" />
+                              <Label fx:id="_generoCoordenador" layoutX="190.0" layoutY="215.0" prefHeight="17.0" prefWidth="141.0" text="Gênero" />
                            </children>
                         </Pane>
                         <Button layoutX="44.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#previous" text="Anterior" />

@@ -13,8 +13,8 @@ import java.util.List;
 public class Coordenador extends Users{
     public List<Membros> membros;
     
-    public Coordenador(String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero){
-        super(nome,sobrenome,cpf, contato, email,senha,confirmaSenha, genero);
+    public Coordenador(String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim){
+        super(nome,sobrenome,cpf, contato, email,senha,confirmaSenha, genero, inicio, fim);
         this.membros = new ArrayList<>();
     }
    

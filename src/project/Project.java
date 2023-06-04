@@ -14,6 +14,7 @@ public class Project implements Valida{
     public List<Membros> membros;
     private String nomeProjeto, descricaoProjeto, inicio, fim;
     private String[] dadosProjeto;
+    public static String erros;
     
     public Project(String nomeProjeto, String descricaoProjeto, String inicio, String fim){
         this.dadosProjeto = new String[]{nomeProjeto, descricaoProjeto, inicio, fim};

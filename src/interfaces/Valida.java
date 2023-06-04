@@ -4,6 +4,7 @@
  */
 package interfaces;
 import accountsusers.*;
+import project.Project;
 /**
  *
  * @author gabrielbezerra
@@ -14,7 +15,7 @@ public interface Valida {
         String campo = "";
         for(int i = 0; i < campos.length; i++){
             if(campos[i].isEmpty()){
-                if(campos.length == 7){
+                if(campos.length == 9){
                 switch(i){
                      case 0: campo = "Nome"; break;
                      case 1: campo = "Sobrenome"; break;
@@ -23,7 +24,10 @@ public interface Valida {
                      case 4: campo = "Email"; break;
                      case 5: campo = "Senha"; break;
                      case 6: campo = "Confirmar senha"; break;
+                     case 7: campo = "Início gerenciamento"; break;
+                     case 8: campo = "Termino gerenciamento"; break;
                  }
+                    Users.erros = String.format("O campo \"%s\" está faltando.",campo);
                 }
                 else{
                 switch(i){
@@ -32,14 +36,15 @@ public interface Valida {
                      case 2: campo = "Inicío do projeto"; break;
                      case 3: campo = "Fim do projeto"; break;
                 }
+                Project.erros = String.format("O campo \"%s\" está faltando.",campo);
              }
-             Users.erros = String.format("O campo \"%s\" está faltando.",campo);
              System.out.println("Campo vazio");
              return resultado;
             }
         }
         resultado = true;
         return resultado;
-}}
+}
+}
 
 
