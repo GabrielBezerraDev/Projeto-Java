@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import accountsusers.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import project.Project;
@@ -39,7 +40,7 @@ import project.Project;
 public class FXMLController implements Initializable {
     
     List<Coordenador> coordenador = new ArrayList<>();
-    private List<Project> project = new ArrayList<>();
+    private Project project;
     private boolean visibleProject = true;
     private int countEmployee = 0;
     private int i = 0;
@@ -49,13 +50,16 @@ public class FXMLController implements Initializable {
      List<Pane> employee = new ArrayList<>();
     
     @FXML
+    private ChoiceBox generoCoordenador;
+    
+    @FXML
     private GridPane painel = new GridPane();
     
     @FXML
     private Label animation;
     
     @FXML
-    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador, nomeProjeto;
+    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, contatoCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador, nomeProjeto;
     
     @FXML
     private TextArea descricaoProjeto;
@@ -173,16 +177,14 @@ public class FXMLController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if(inicioProjeto.getValue() != null) formattedDateInit = inicio.format(formatter);       
         if(fimProjeto.getValue() != null) formattedDateEnd = fim.format(formatter);
-        project.add(new Project(nomeProjeto.getText(), descricaoProjeto.getText(), formattedDateInit, formattedDateEnd));
-        if(!project.get(project.size()-1).validation()){
+        project = new Project(nomeProjeto.getText(), descricaoProjeto.getText(), formattedDateInit, formattedDateEnd);
+        if(!project.validation()){
             PopUpController popUp = new PopUpController();
             popUp.erros = Project.erros;
             popUp.popUp();
             return;
         }
-        project.get(project.size()-1).showDataProjetc();
-        System.out.println(formattedDateInit);
-        System.out.println(formattedDateEnd);
+        project.setData();
 //        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
 //        coordenador.get(coordenador.size()-1).showCoordenador();
 //        PopUpController popUp = new PopUpController();
@@ -198,6 +200,9 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void next(){
+        if(countEmployee == 0){
+            
+        }
         if(countEmployee > 0){
             TextField [] dadosMembros = new TextField[6];
             int countDados = 0;
@@ -226,7 +231,7 @@ public class FXMLController implements Initializable {
             System.out.println( Integer.parseInt(amountEmployee.getText()));
             employee.add(new Pane());
             employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
-            employee.get(countEmployee).setPrefSize(356,328);
+            employee.get(countEmployee).setPrefSize(356,328); 
             main.getChildren().add(employee.get(countEmployee));
             description.setLayoutX(27);
             description.setLayoutY(187);

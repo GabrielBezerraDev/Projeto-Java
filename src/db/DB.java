@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -54,5 +57,15 @@ public class DB {
         catch(IOException e){
             throw new DbException(e.getMessage());
     }
+    }
+
+    public static void closeStatement(PreparedStatement st) {
+        if(st != null){
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            }
+        }
     }
 }
