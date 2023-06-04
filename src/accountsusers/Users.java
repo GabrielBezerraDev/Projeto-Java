@@ -11,15 +11,16 @@ import java.util.ArrayList;
  */
 
 abstract class Users {
-    protected String nome, sobrenome, cpf, email, senha, confirmaSenha;
+    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha;
     protected String[] dadosUser;
     public String erros;
-    protected Users (String nome, String sobrenome, String cpf, String email, String senha, String confirmaSenha){
+    protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha){
         this.erros = "";
         this.dadosUser = new String[]{nome,sobrenome,cpf,email,senha,confirmaSenha};
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.contato = contato;
         this.email = email;
         this.senha = senha;
         this.confirmaSenha = confirmaSenha;

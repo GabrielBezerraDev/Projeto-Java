@@ -29,6 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import accountsusers.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
 import project.Project;
 
 
@@ -51,7 +53,13 @@ public class FXMLController implements Initializable {
     private Label animation;
     
     @FXML
-    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador;
+    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador, nomeProjeto;
+    
+    @FXML
+    private TextArea descricaoProjeto;
+    
+    @FXML
+    private DatePicker inicioProjeto, fimProjeto;
     
     @FXML
     private Text tittleDescription;
@@ -59,7 +67,10 @@ public class FXMLController implements Initializable {
     private  ImageView image;
     
     @FXML
-    private Pane programador, supervisionar, cadastroPessoa, cadastroProjeto, main;
+    private Pane programador, supervisionar, main;
+    
+    @FXML
+    private ScrollPane cadastroPessoa, cadastroProjeto;
     
     @FXML
    private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
@@ -151,17 +162,21 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void cadastrado() throws IOException{
-        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
-        coordenador.get(coordenador.size()-1).showCoordenador();
-        PopUpController popUp = new PopUpController();
-        if(!coordenador.get(coordenador.size()-1).validacao()) {
-            popUp.erros = coordenador.get(coordenador.size()-1).erros;
-            popUp.popUp();
-            return;
-        }
-        tittleDescription.setText("Projeto");
-        cadastroPessoa.setVisible(false);
-        cadastroProjeto.setVisible(true);
+        project.add(new Project(nomeProjeto.getText(), descricaoProjeto.getText()));
+        project.get(project.size()-1).showDataProjetc();
+        System.out.println(inicioProjeto.getValue());
+        System.out.println(fimProjeto.getValue());
+//        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
+//        coordenador.get(coordenador.size()-1).showCoordenador();
+//        PopUpController popUp = new PopUpController();
+//        if(!coordenador.get(coordenador.size()-1).validacao()) {
+//            popUp.erros = coordenador.get(coordenador.size()-1).erros;
+//            popUp.popUp();
+//            return;
+//        }
+        tittleDescription.setText("Coordenador");
+        cadastroPessoa.setVisible(true);
+        cadastroProjeto.setVisible(false);
     }
     
     @FXML

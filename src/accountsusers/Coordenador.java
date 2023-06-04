@@ -13,8 +13,8 @@ import java.util.List;
 public class Coordenador extends Users{
     public List<Membros> membros;
     
-    public Coordenador(String nome, String sobrenome, String cpf,String email, String senha, String confirmaSenha){
-        super(nome,sobrenome,cpf,email,senha,confirmaSenha);
+    public Coordenador(String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero){
+        super(nome,sobrenome,cpf, contato, email,senha,confirmaSenha, genero);
         this.membros = new ArrayList<>();
     }
    
@@ -22,8 +22,8 @@ public class Coordenador extends Users{
         System.out.printf("Nome: %s%nSobrenome: %s%nCPF: %s%nEmail: %s%nSenha: %s%nConfirmar Senha: %s", this.nome, this.sobrenome, this.cpf, this.email, this.senha, this.confirmaSenha);
     }
     
-    public void criarMembros(String nome, String sobrenome, String cpf,String email, String senha, String confirmarSenha) {
-          System.out.printf("Nome: %s%nSobrenome: %s%nCPF: %s%nEmail: %s%nSenha: %s%nConfirmar Senha: %s", nome, sobrenome, cpf, email, senha, confirmarSenha);
-          this.membros.add(new Membros(nome, sobrenome, cpf, email, senha, confirmarSenha));
-    }
+//    public void criarMembros(String nome, String sobrenome, String cpf,String email, String senha, String confirmarSenha) {
+//          System.out.printf("Nome: %s%nSobrenome: %s%nCPF: %s%nEmail: %s%nSenha: %s%nConfirmar Senha: %s", nome, sobrenome, cpf, email, senha, confirmarSenha);
+//          this.membros.add(new Membros(nome, sobrenome, cpf, email, senha, confirmarSenha));
+//    }
 }

@@ -9,7 +9,7 @@ package accountsusers;
  * @author gabrielbezerra
  */
 public class Membros extends Users{
-    public Membros(String nome, String sobrenome, String cpf, String email, String senha, String confirmarSenha){
-        super(nome,sobrenome,cpf,email,senha,confirmarSenha);
+    public Membros(String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmarSenha, String genero){
+        super(nome,sobrenome,cpf, contato, email,senha,confirmarSenha, genero);
     }
 }
