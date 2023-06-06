@@ -30,7 +30,7 @@
          <children>
             <ScrollPane fx:id="cadastroProjeto" layoutX="-21.0" prefHeight="361.0" prefWidth="399.0" style="visibility: none;">
                <content>
-                  <Pane prefHeight="560.0" prefWidth="378.0" style="visibility: none;">
+                  <Pane prefHeight="560.0" prefWidth="378.0">
                      <children>
                         <TextField fx:id="nomeProjeto" layoutX="24.0" layoutY="89.0" />
                         <TextField fx:id="amountEmployee" layoutX="24.0" layoutY="138.0" prefHeight="25.0" prefWidth="41.0" />
@@ -49,7 +49,7 @@
                   </Pane>
                </content>
             </ScrollPane>
-            <ScrollPane fx:id="cadastroPessoa" layoutX="-20.0" prefHeight="361.0" prefWidth="398.0" style="visibility: hidden;">
+            <ScrollPane fx:id="cadastroPessoa" layoutX="-20.0" prefHeight="361.0" prefWidth="398.0">
                <content>
                   <Pane prefHeight="509.0" prefWidth="382.0" style="visibility: none;">
                      <children>
@@ -74,9 +74,9 @@
                            </children>
                         </Pane>
                         <Button layoutX="44.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#previous" text="Anterior" />
-                        <DatePicker layoutX="34.0" layoutY="385.0" prefHeight="24.0" prefWidth="109.0" />
+                        <DatePicker fx:id="inicioGerenciamento" layoutX="34.0" layoutY="385.0" prefHeight="24.0" prefWidth="109.0" />
                         <Label layoutX="34.0" layoutY="356.0" prefHeight="17.0" prefWidth="154.0" text="Início gerenciamento*" />
-                        <DatePicker layoutX="208.0" layoutY="383.0" prefHeight="24.0" prefWidth="109.0" />
+                        <DatePicker fx:id="terminioGerenciamento" layoutX="208.0" layoutY="383.0" prefHeight="24.0" prefWidth="109.0" />
                         <Label layoutX="208.0" layoutY="356.0" prefHeight="17.0" prefWidth="169.0" text="Termino gerenciamento*" />
                         <RadioButton layoutX="208.0" layoutY="412.0" mnemonicParsing="false" text="Sem data prevista." />
                         <Button layoutX="242.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#next" text="Próximo" />

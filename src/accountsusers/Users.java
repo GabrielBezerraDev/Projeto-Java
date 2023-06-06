@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Users implements Valida{
     protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim;
     protected String[] dadosUser;
-    public static String erros;
+    public String erros;
     protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim){
         this.dadosUser = new String[]{nome,sobrenome,cpf,contato,email,senha,confirmaSenha,genero, inicio, fim};
         this.nome = nome;
@@ -31,7 +31,11 @@ public class Users implements Valida{
 
     public boolean validacao(){
         boolean resultado = false;
-        if(!validaCampus(this.dadosUser)) return resultado;
+        if(!(boolean)validaCampus(this.dadosUser)[0]){
+        Object[] result = validaCampus(this.dadosUser);
+        this.erros = (String) result[1];
+        return (boolean) result[0];
+        } 
         boolean[] validando = {validacaoEmail(), validacaoCpf(),validacaoSenha()};
         for(int i = 0; i < validando.length; i++){
             if(validando[i] && i == validando.length-1){
@@ -44,27 +48,6 @@ public class Users implements Valida{
         return resultado;
     }
     
-//    public boolean validacaoCampos(){
-//        String campo = "";
-//        boolean resultado = false;
-//         for(int i = 0; i < this.dadosUser.length; i++){
-//             if(this.dadosUser[i].isEmpty()) {
-//                 switch(i){
-//                     case 0: campo = "Nome"; break;
-//                     case 1: campo = "Sobrenome"; break;
-//                     case 2: campo = "cpf"; break;
-//                     case 3: campo = "Email"; break;
-//                     case 4: campo = "Senha"; break;
-//                     case 5: campo = "Confirmar senha"; break;
-//                 }
-//                 this.erros = String.format("O campo \"%s\" está faltando.",campo);
-//                 System.out.println("Campo vazio");
-//                 break;
-//             }
-//             if(!this.dadosUser[i].isEmpty() && i == this.dadosUser.length-1) resultado = true;
-//         }
-//         return resultado;
-//    }
     
     protected boolean validacaoSenha(){
         boolean resultado = false;
@@ -76,7 +59,7 @@ public class Users implements Valida{
             this.erros = "O tamanho da sua senha deve ser maior do que 4 caracteres.";
         }
         else{
-            this.erros = "As senhas são diferentes.";
+            this.erros  = "As senhas são diferentes.";
         }
         return resultado;
     }
@@ -144,11 +127,16 @@ public class Users implements Valida{
             resultado = true;
         }
         if(!resultado){
-            this.erros = "CPF inválido.";
+            this.erros  = "CPF inválido.";
         }
         return resultado;
     }
 
-
+    public void teste(){
+        System.out.println("Aqui o erro: "+ this.erros);
+        for(int i = 0; i < this.dadosUser.length; i++){
+            System.out.println(this.dadosUser[i]);
+        }
+    }
 
 }

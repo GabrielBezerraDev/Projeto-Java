@@ -31,6 +31,8 @@ import javafx.stage.Stage;
 import accountsusers.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -38,10 +40,10 @@ import project.Project;
 
 
 public class FXMLController implements Initializable {
-    
+    private String[] generos = {"Masculino","Femino","Outro"};
     List<Coordenador> coordenador = new ArrayList<>();
     private Project project;
-    private boolean visibleProject = true;
+    private boolean visiblePeople = true;
     private int countEmployee = 0;
     private int i = 0;
     
@@ -50,7 +52,7 @@ public class FXMLController implements Initializable {
      List<Pane> employee = new ArrayList<>();
     
     @FXML
-    private ChoiceBox generoCoordenador;
+    private ChoiceBox<String> generoCoordenador;
     
     @FXML
     private GridPane painel = new GridPane();
@@ -65,7 +67,7 @@ public class FXMLController implements Initializable {
     private TextArea descricaoProjeto;
     
     @FXML
-    private DatePicker inicioProjeto, fimProjeto;
+    private DatePicker inicioProjeto, fimProjeto, inicioGerenciamento, terminioGerenciamento;
     
     @FXML
     private Text tittleDescription;
@@ -170,18 +172,11 @@ public class FXMLController implements Initializable {
     public void cadastrado() throws IOException{
         String formattedDateInit = "";       
         String formattedDateEnd = "";
-        System.out.println(inicioProjeto.getValue());
-        System.out.println(fimProjeto.getValue());
-        LocalDate inicio = inicioProjeto.getValue();
-        LocalDate fim = fimProjeto.getValue();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if(inicioProjeto.getValue() != null) formattedDateInit = inicio.format(formatter);       
-        if(fimProjeto.getValue() != null) formattedDateEnd = fim.format(formatter);
+        if(inicioProjeto.getValue() != null) formattedDateInit = converteDatas(inicioProjeto.getValue());
+        if(fimProjeto.getValue() != null) formattedDateEnd = converteDatas(fimProjeto.getValue());
         project = new Project(nomeProjeto.getText(), descricaoProjeto.getText(), formattedDateInit, formattedDateEnd);
         if(!project.validation()){
-            PopUpController popUp = new PopUpController();
-            popUp.erros = Project.erros;
-            popUp.popUp();
+            popUpError(project.erros);
             return;
         }
         project.setData();
@@ -199,9 +194,19 @@ public class FXMLController implements Initializable {
     }
     
     @FXML
-    public void next(){
+    public void next() throws IOException{
         if(countEmployee == 0){
-            
+            String formattedDateInit = "";       
+            String formattedDateEnd = "";
+            if(inicioGerenciamento.getValue() != null) formattedDateInit = converteDatas(inicioGerenciamento.getValue());
+            if(terminioGerenciamento.getValue() != null) formattedDateEnd = converteDatas(terminioGerenciamento.getValue());
+            project.coordenador = new Coordenador(nomeCoordenador.getText(),sobrenomeCoordenador.getText(),cpfCoordenador.getText(), contatoCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText(), generoCoordenador.getValue(), formattedDateInit, formattedDateEnd);
+            System.out.println("Será feito uma nova instância e essa instância será validada");
+            project.coordenador.teste();
+            if(!project.coordenador.validacao()){
+                popUpError(project.coordenador.erros);
+                return;
+            }
         }
         if(countEmployee > 0){
             TextField [] dadosMembros = new TextField[6];
@@ -212,70 +217,73 @@ public class FXMLController implements Initializable {
                         countDados++;
                 }
             }
-//            coordenador.get(coordenador.size()-1).criarMembros(dadosMembros[0].getText(), dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText());
-//           if(!coordenador.get(coordenador.size()-1).membros.get(coordenador.get(coordenador.size()-1).membros.size()-1).validacao()) return;
-//                System.out.printf("%nTamanho da Lista de coordenadores: %d%n",coordenador.size());
-//                System.out.printf("%nTamanho da Lista de membros: %d%n",coordenador.get(coordenador.size()-1).membros.size());
         }
-        if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
-            int layoutX = 0;
-            int layoutY = 0;
-            Label[] labelsEmployees = new Label[6];
-            TextField[] textInput = new TextField[6];
-            Label description = new Label();
-            TextArea textArea = new TextArea();
-            String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
-            cadastroProjeto.setVisible(false);
-            visibleProject = false;
-            System.out.println("Verdadeiro");
-            System.out.println( Integer.parseInt(amountEmployee.getText()));
-            employee.add(new Pane());
-            employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
-            employee.get(countEmployee).setPrefSize(356,328); 
-            main.getChildren().add(employee.get(countEmployee));
-            description.setLayoutX(27);
-            description.setLayoutY(187);
-            textArea.setLayoutX(27);
-            textArea.setLayoutY(208);
-            textArea.setPrefSize(317, 100);
-            description.setText("Descrição da função");
-            Button buttonPrevious = new Button();
-            Button buttonNext = new Button();
-            buttonPrevious.setText("Anterior");
-            buttonPrevious.setLayoutX(30);
-            buttonPrevious.setLayoutY(315);
-            buttonNext.setText("Próximo");
-            buttonNext.setLayoutX(269);
-            buttonNext.setLayoutY(315);
-            buttonNext.setOnMouseClicked((MouseEvent event) -> {
-                next();
-            });
-            buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
-                previous();
-            });
-            for (int i = 0; i < labelsEmployees.length; i++){
-                textInput[i] = new TextField();
-                labelsEmployees[i] = new Label();
-                layoutY += 50;
-                if(i == 0 || i == 3 ) layoutY = 0;
-                if(i > 2) layoutX = 178;
-                textInput[i].setLayoutX(27+layoutX);
-                textInput[i].setLayoutY(57+layoutY);
-                labelsEmployees[i].setLayoutX(27+layoutX);
-                labelsEmployees[i].setLayoutY(40+layoutY);
-                labelsEmployees[i].setText(campos[i]);
-                employee.get(countEmployee).getChildren().add(textInput[i]);
-                employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
-            }
-            tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
-            employee.get(countEmployee).getChildren().add(textArea);
-            employee.get(countEmployee).getChildren().add(description);
-            employee.get(countEmployee).getChildren().add(buttonNext);
-            employee.get(countEmployee).getChildren().add(buttonPrevious);
-            if(countEmployee != 0){
-                  employee.get(countEmployee-1).setVisible(false);
-            }
-            countEmployee++;
+        System.out.println(amountEmployee.getText());
+        if(!amountEmployee.getText().isEmpty()){
+            if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
+                int layoutX = 0;
+                int layoutY = 0;
+                Label[] labelsEmployees = new Label[6];
+                TextField[] textInput = new TextField[6];
+                Label description = new Label();
+                TextArea textArea = new TextArea();
+                String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
+                cadastroPessoa.setVisible(false);
+                visiblePeople = false;
+                System.out.println("Verdadeiro");
+                System.out.println( Integer.parseInt(amountEmployee.getText()));
+                employee.add(new Pane());
+                employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
+                employee.get(countEmployee).setPrefSize(356,328); 
+                main.getChildren().add(employee.get(countEmployee));
+                description.setLayoutX(27);
+                description.setLayoutY(187);
+                textArea.setLayoutX(27);
+                textArea.setLayoutY(208);
+                textArea.setPrefSize(317, 100);
+                description.setText("Descrição da função");
+                Button buttonPrevious = new Button();
+                Button buttonNext = new Button();
+                buttonPrevious.setText("Anterior");
+                buttonPrevious.setLayoutX(30);
+                buttonPrevious.setLayoutY(315);
+                buttonNext.setText("Próximo");
+                buttonNext.setLayoutX(269);
+                buttonNext.setLayoutY(315);
+                buttonNext.setOnMouseClicked((MouseEvent event) -> {
+                    try {
+                        next();
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
+                    previous();
+                });
+                for (int i = 0; i < labelsEmployees.length; i++){
+                    textInput[i] = new TextField();
+                    labelsEmployees[i] = new Label();
+                    layoutY += 50;
+                    if(i == 0 || i == 3 ) layoutY = 0;
+                    if(i > 2) layoutX = 178;
+                    textInput[i].setLayoutX(27+layoutX);
+                    textInput[i].setLayoutY(57+layoutY);
+                    labelsEmployees[i].setLayoutX(27+layoutX);
+                    labelsEmployees[i].setLayoutY(40+layoutY);
+                    labelsEmployees[i].setText(campos[i]);
+                    employee.get(countEmployee).getChildren().add(textInput[i]);
+                    employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
+                }
+                tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
+                employee.get(countEmployee).getChildren().add(textArea);
+                employee.get(countEmployee).getChildren().add(description);
+                employee.get(countEmployee).getChildren().add(buttonNext);
+                employee.get(countEmployee).getChildren().add(buttonPrevious);
+                if(countEmployee != 0){
+                      employee.get(countEmployee-1).setVisible(false);
+                }
+                countEmployee++;
+        }
         }
     }
     
@@ -289,40 +297,57 @@ public class FXMLController implements Initializable {
             employee.get(countEmployee).setVisible(false);
             employee.remove(countEmployee);
         }
-        if(countEmployee == 0 && visibleProject == false){
-            cadastroProjeto.setVisible(true);
-            visibleProject = true;
-            tittleDescription.setText("Projeto");
+        if(countEmployee == 0 && visiblePeople == false){
+            cadastroPessoa.setVisible(true);
+            visiblePeople = true;
+            tittleDescription.setText("Coordenador");
             return;
         }
         else if(employee.isEmpty()){
-            cadastroProjeto.setVisible(false);
-            cadastroPessoa.setVisible(true);
-            tittleDescription.setText("Coodernador");
+            cadastroProjeto.setVisible(true);
+            cadastroPessoa.setVisible(false);
+            tittleDescription.setText("Projeto");
             return;
         }
         tittleDescription.setText(String.format("%dºmembro:", countEmployee));
         employee.get(countEmployee-1).setVisible(true);
     }
     
+    public String converteDatas(LocalDate data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = data.format(formatter);       
+        return formattedDate;
+    }
+    
+    public void popUpError(String error) throws IOException{
+        PopUpController popUp = new PopUpController();
+        popUp.erros = error;
+        popUp.popUp();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        try{
-//                 Platform.runLater(() -> {
-//                scene = painel.getScene();
-//                scene.setOnMouseClicked(event -> {
-//                Node teste = (Node) event.getTarget();
-//                System.out.println(teste.getId());
-//        });
-//                supervisionar.setVisible(false);
-//                programador.setVisible(false);
-//                animation();
-//                ponto();
-//        });
-//        }
-//        finally{
-//           System.out.println("Próxima tela");
-//        }
+        Platform.runLater(() ->{
+                cadastroPessoa.setVisible(false);
+                cadastroProjeto.setVisible(true);
+                generoCoordenador.getItems().addAll(generos);
+        });
+        try{
+                 Platform.runLater(() -> {
+                scene = painel.getScene();
+                scene.setOnMouseClicked(event -> {
+                Node teste = (Node) event.getTarget();
+                System.out.println(teste.getId());
+        });
+                supervisionar.setVisible(false);
+                programador.setVisible(false);
+                animation();
+                ponto();
+        });
+        }
+        finally{
+           System.out.println("Próxima tela");
+        }
     }    
     
 }

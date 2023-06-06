@@ -20,11 +20,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Project implements Valida{
-    public List<Coordenador> coordenador;
-    public List<Membros> membros;
+    public Coordenador coordenador;
+    public Membros membro;
+    public int id;
     private String nomeProjeto, descricaoProjeto, inicio, fim;
     private String[] dadosProjeto;
-    public static String erros;
+    public String erros;
     
     public Project(String nomeProjeto, String descricaoProjeto, String inicio, String fim){
         this.dadosProjeto = new String[]{nomeProjeto, descricaoProjeto, inicio, fim};
@@ -32,12 +33,12 @@ public class Project implements Valida{
         this.descricaoProjeto = descricaoProjeto;
         this.inicio = inicio;
         this.fim = fim;
-        this.coordenador = new ArrayList<>();
-        this.membros = new ArrayList<>();
     }
     
     public boolean validation(){
-        return validaCampus(this.dadosProjeto);
+        Object[] resultado = validaCampus(this.dadosProjeto);
+        this.erros = (String) resultado[1];
+        return (boolean) resultado[0];
     }
     
     public void setData(){
@@ -61,8 +62,8 @@ public class Project implements Valida{
         st.executeUpdate();
         ResultSet rs = st.getGeneratedKeys();
         while(rs.next()){
-                int id = rs.getInt(1);
-                System.out.println(id);
+                this.id = rs.getInt(1);
+                System.out.println(this.id);
         }
         }
         catch(SQLException e){
