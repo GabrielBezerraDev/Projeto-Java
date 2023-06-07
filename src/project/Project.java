@@ -7,7 +7,7 @@ package project;
 import java.util.List;
 import java.util.ArrayList;
 import accountsusers.*;
-import interfaces.Valida;
+import interfaces.*;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import db.DB;
@@ -19,7 +19,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Project implements Valida{
+public class Project implements Valida, ConverterString{
     public Coordenador coordenador;
     public Membros membro;
     public int id;
@@ -41,12 +41,11 @@ public class Project implements Valida{
         return (boolean) resultado[0];
     }
     
-    public void setData(){
+    public int setData(){
         Connection conn = null;
         PreparedStatement st = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dateInicio = LocalDate.parse(this.inicio, formatter);
-        LocalDate dateFim = LocalDate.parse(this.fim, formatter);
+        LocalDate dateInicio = converte(this.inicio);
+        LocalDate dateFim = converte(this.fim);
         try{
             conn = DB.getConnection();
             st = conn.prepareStatement(
@@ -73,6 +72,7 @@ public class Project implements Valida{
             DB.closeStatement(st);
             DB.closeConnection();
         }
+        return this.id;
     }
     
     public void showDataProjetc(){

@@ -3,7 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package accountsusers;
-import interfaces.Valida;
+import db.DB;
+import interfaces.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -11,11 +20,12 @@ import java.util.ArrayList;
  * @author Jonathan
  */
 
-public class Users implements Valida{
-    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim;
+public class Users implements Valida, ConverterString{
+    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
+    public int projeto_id;
     protected String[] dadosUser;
     public String erros;
-    protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim){
+    protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim, String cargo, int projeto_id){
         this.dadosUser = new String[]{nome,sobrenome,cpf,contato,email,senha,confirmaSenha,genero, inicio, fim};
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -27,6 +37,8 @@ public class Users implements Valida{
         this.genero = genero;
         this.inicio = inicio;
         this.fim = fim;
+        this.cargo = cargo;
+        this.projeto_id = projeto_id;
     }
 
     public boolean validacao(){
@@ -77,7 +89,10 @@ public class Users implements Valida{
 
     protected boolean validacaoCpf(){
         boolean resultado = false, validaPrimeiroDigito = false, validaSegundoDigito = false;
-        if(this.cpf.length() != 11) return resultado;
+        if(this.cpf.length() != 11){
+            this.erros = "O tamanho do CPF deve ser de 11 caracteres.";
+            return resultado;
+        };
         int cont1 = 10,cont2 = 11, soma1 = 0, soma2 = 0;
         int[] primeiroCalculoCpf = new int[9];
         int[] segundoCalculoCpf = new int[10];
@@ -136,6 +151,44 @@ public class Users implements Valida{
         System.out.println("Aqui o erro: "+ this.erros);
         for(int i = 0; i < this.dadosUser.length; i++){
             System.out.println(this.dadosUser[i]);
+        }
+    }
+    
+        public void setData(){
+        Connection conn = null;
+        PreparedStatement st = null;
+        LocalDate dateInicio = converte(this.inicio);
+        LocalDate dateFim = converte(this.fim);
+        try{
+            conn = DB.getConnection();
+            st = conn.prepareStatement(
+            String.format("INSERT INTO %s"
+                    +"(nome, sobrenome, cpf, contato, email, senha, genero, data_inicio, data_fim, projeto_id)"
+                    +"VALUES"
+                    +"(?,?,?,?,?,?,?,?,?,?)",this.cargo));
+        st.setString(1, this.nome);
+        st.setString(2,this.sobrenome);
+        st.setString(3, this.cpf);
+        st.setString(4, this.contato);
+        st.setString(5, this.email);
+        st.setString(6, this.senha);
+        st.setString(7, this.genero);
+        st.setDate(8, Date.valueOf(dateInicio));
+        st.setDate(9, Date.valueOf(dateFim));
+        st.setInt(10, this.projeto_id);
+        st.executeUpdate();
+//        ResultSet rs = st.getGeneratedKeys();
+//        while(rs.next()){
+//                this.id = rs.getInt(1);
+//                System.out.println(this.id);
+//        }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally{
+            DB.closeStatement(st);
+            DB.closeConnection();
         }
     }
 

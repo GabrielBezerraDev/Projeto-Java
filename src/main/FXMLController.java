@@ -180,14 +180,6 @@ public class FXMLController implements Initializable {
             return;
         }
         project.setData();
-//        coordenador.add(new Coordenador(nomeCoordenador.getText(), sobrenomeCoordenador.getText(), cpfCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText()));
-//        coordenador.get(coordenador.size()-1).showCoordenador();
-//        PopUpController popUp = new PopUpController();
-//        if(!coordenador.get(coordenador.size()-1).validacao()) {
-//            popUp.erros = coordenador.get(coordenador.size()-1).erros;
-//            popUp.popUp();
-//            return;
-//        }
         tittleDescription.setText("Coordenador");
         cadastroPessoa.setVisible(true);
         cadastroProjeto.setVisible(false);
@@ -200,13 +192,14 @@ public class FXMLController implements Initializable {
             String formattedDateEnd = "";
             if(inicioGerenciamento.getValue() != null) formattedDateInit = converteDatas(inicioGerenciamento.getValue());
             if(terminioGerenciamento.getValue() != null) formattedDateEnd = converteDatas(terminioGerenciamento.getValue());
-            project.coordenador = new Coordenador(nomeCoordenador.getText(),sobrenomeCoordenador.getText(),cpfCoordenador.getText(), contatoCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText(), generoCoordenador.getValue(), formattedDateInit, formattedDateEnd);
+            project.coordenador = new Coordenador(nomeCoordenador.getText(),sobrenomeCoordenador.getText(),cpfCoordenador.getText(), contatoCoordenador.getText(), emailCoordenador.getText(), senhaCoordenador.getText(), confirmarSenhaCoordenador.getText(), generoCoordenador.getValue(), formattedDateInit, formattedDateEnd, project.id);
             System.out.println("Será feito uma nova instância e essa instância será validada");
             project.coordenador.teste();
             if(!project.coordenador.validacao()){
                 popUpError(project.coordenador.erros);
                 return;
             }
+            project.coordenador.setData();
         }
         if(countEmployee > 0){
             TextField [] dadosMembros = new TextField[6];
