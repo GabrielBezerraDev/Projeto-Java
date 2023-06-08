@@ -40,7 +40,7 @@ import project.Project;
 
 
 public class FXMLController implements Initializable {
-    public List<Integer> MembrosId = new ArrayList<>();
+    public List<Membros> deleteMembros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
     private Project project;
     private boolean visiblePeople = true;
@@ -55,6 +55,9 @@ public class FXMLController implements Initializable {
     private ChoiceBox<String> generoCoordenador;
     
     @FXML
+    private ChoiceBox choiceBox = new ChoiceBox();
+    
+    @FXML
     private GridPane painel = new GridPane();
     
     @FXML
@@ -67,8 +70,7 @@ public class FXMLController implements Initializable {
     private TextArea descricaoProjeto;
     
     @FXML
-    private DatePicker inicioProjeto, fimProjeto, inicioGerenciamento, terminioGerenciamento;
-    
+    private DatePicker inicioProjeto, fimProjeto, inicioGerenciamento, terminioGerenciamento, inicioDataMembro = new DatePicker(), fimDataMembro = new DatePicker();;
     @FXML
     private Text tittleDescription;
     @FXML
@@ -215,6 +217,11 @@ public class FXMLController implements Initializable {
                         countDados++;
                 }
             }
+            String dataInicio = converteDatas(inicioDataMembro.getValue());
+            String dataFim = converteDatas(fimDataMembro.getValue());
+            project.membro = new Membros(dadosMembros[0].getText(),dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText(),dadosMembros[6].getText(),(String) choiceBox.getValue(),dataInicio,dataFim, project.id);
+            project.membro.setData();
+            deleteMembros.add(project.membro);
         }
         System.out.println(amountEmployee.getText());
         if(!amountEmployee.getText().isEmpty()){
@@ -226,6 +233,8 @@ public class FXMLController implements Initializable {
                 Label description = new Label();
                 Label genero = new Label();
                 TextArea textArea = new TextArea();
+                Label inicioMembro = new Label();
+                Label fimMembro = new Label();
                 String[] campos = {"Nome*", "Sobrenome*","CPF*","Número de contato*","Email*","Senha*","Confirmar senha*"}; 
                 cadastroPessoa.setVisible(false);
                 visiblePeople = false;
@@ -236,29 +245,40 @@ public class FXMLController implements Initializable {
                 employee.add(new Pane());
                 scrollPane.get(countEmployee).setContent(employee.get(countEmployee));
                 employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
-                employee.get(countEmployee).setPrefSize(356,600); 
+                employee.get(countEmployee).setPrefSize(356,540); 
                 main.getChildren().add(scrollPane.get(countEmployee));
                 genero.setLayoutX(205);
-                genero.setLayoutY(180);
+                genero.setLayoutY(186);
                 genero.setText("Gênero*");
                 description.setLayoutX(27);
-                description.setLayoutY(330);
+                description.setLayoutY(246);
+                inicioMembro.setText("Início contribuição*");
+                fimMembro.setText("Fim contribuição");
+                inicioMembro.setLayoutX(27);
+                inicioMembro.setLayoutY(396);
+                fimMembro.setLayoutX(205);
+                fimMembro.setLayoutY(396);
+                inicioDataMembro.setLayoutX(27);
+                inicioDataMembro.setLayoutY(416);
+                inicioDataMembro.setPrefSize(109, 24);
+                fimDataMembro.setLayoutX(205);
+                fimDataMembro.setLayoutY(416);
+                fimDataMembro.setPrefSize(109, 24);
                 textArea.setLayoutX(27);
-                textArea.setLayoutY(350);
+                textArea.setLayoutY(266);
                 textArea.setPrefSize(317, 100);
                 description.setText("Descrição da função");
-                ChoiceBox choiceBox = new ChoiceBox();
                 choiceBox.setLayoutX(205);
-                choiceBox.setLayoutY(200);
+                choiceBox.setLayoutY(206);
                 choiceBox.getItems().addAll(generos);
                 Button buttonPrevious = new Button();
                 Button buttonNext = new Button();
                 buttonPrevious.setText("Anterior");
                 buttonPrevious.setLayoutX(30);
-                buttonPrevious.setLayoutY(550);
+                buttonPrevious.setLayoutY(486);
                 buttonNext.setText("Próximo");
                 buttonNext.setLayoutX(269);
-                buttonNext.setLayoutY(550);
+                buttonNext.setLayoutY(486);
                 buttonNext.setOnMouseClicked((MouseEvent event) -> {
                     try {
                         next();
@@ -283,7 +303,7 @@ public class FXMLController implements Initializable {
                     employee.get(countEmployee).getChildren().addAll(textInput[i], labelsEmployees[i]);
                 }
                 tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
-                employee.get(countEmployee).getChildren().addAll(textArea,description,buttonNext,buttonPrevious,choiceBox,genero);
+                employee.get(countEmployee).getChildren().addAll(textArea,description,buttonNext,buttonPrevious,choiceBox,genero, inicioMembro, fimMembro, inicioDataMembro, fimDataMembro);
                 if(countEmployee != 0){
                       scrollPane.get(countEmployee-1).setVisible(false);
                 }
@@ -299,6 +319,9 @@ public class FXMLController implements Initializable {
         }
         if(!scrollPane.isEmpty()){
             //deletar membro
+            deleteMembros.get(deleteMembros.size()-1).delete();
+            System.out.println(deleteMembros.get(deleteMembros.size()-1).nome);
+            deleteMembros.remove(deleteMembros.size()-1);
             countEmployee-=1;
             scrollPane.get(countEmployee).setVisible(false);
             scrollPane.remove(countEmployee);

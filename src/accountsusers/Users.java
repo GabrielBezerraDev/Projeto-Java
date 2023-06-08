@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 
 public class Users implements Valida, ConverterString{
-    protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
+    public String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
     public int projeto_id, id;
     protected String[] dadosUser;
     public String erros;
