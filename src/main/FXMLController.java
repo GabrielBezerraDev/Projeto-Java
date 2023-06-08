@@ -40,8 +40,8 @@ import project.Project;
 
 
 public class FXMLController implements Initializable {
+    public List<Integer> MembrosId = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
-    List<Coordenador> coordenador = new ArrayList<>();
     private Project project;
     private boolean visiblePeople = true;
     private int countEmployee = 0;
@@ -79,6 +79,9 @@ public class FXMLController implements Initializable {
     
     @FXML
     private ScrollPane cadastroPessoa, cadastroProjeto;
+    
+    @FXML
+    private List<ScrollPane> scrollPane = new ArrayList<>();
     
     @FXML
    private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
@@ -202,7 +205,9 @@ public class FXMLController implements Initializable {
             project.coordenador.setData();
         }
         if(countEmployee > 0){
-            TextField [] dadosMembros = new TextField[6];
+            //Pegar o dados do Painel anterior (que eu acabei de criar).
+            System.out.println("PEGANDO DADOS");
+            TextField [] dadosMembros = new TextField[7];
             int countDados = 0;
             for(int i = 0; i < (employee.get(countEmployee-1).getChildren()).size(); i++){
                 if(employee.get(countEmployee-1).getChildren().get(i) instanceof TextField){
@@ -216,33 +221,44 @@ public class FXMLController implements Initializable {
             if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
                 int layoutX = 0;
                 int layoutY = 0;
-                Label[] labelsEmployees = new Label[6];
-                TextField[] textInput = new TextField[6];
+                Label[] labelsEmployees = new Label[7];
+                TextField[] textInput = new TextField[7];
                 Label description = new Label();
+                Label genero = new Label();
                 TextArea textArea = new TextArea();
-                String[] campos = {"Nome*", "Sobrenome*","CPF*","Email*","Senha*","Confirmar senha*"}; 
+                String[] campos = {"Nome*", "Sobrenome*","CPF*","Número de contato*","Email*","Senha*","Confirmar senha*"}; 
                 cadastroPessoa.setVisible(false);
                 visiblePeople = false;
                 System.out.println("Verdadeiro");
                 System.out.println( Integer.parseInt(amountEmployee.getText()));
+                scrollPane.add(new ScrollPane());
+                scrollPane.get(countEmployee).setPrefSize(420, 400);
                 employee.add(new Pane());
+                scrollPane.get(countEmployee).setContent(employee.get(countEmployee));
                 employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
-                employee.get(countEmployee).setPrefSize(356,328); 
-                main.getChildren().add(employee.get(countEmployee));
+                employee.get(countEmployee).setPrefSize(356,600); 
+                main.getChildren().add(scrollPane.get(countEmployee));
+                genero.setLayoutX(205);
+                genero.setLayoutY(180);
+                genero.setText("Gênero*");
                 description.setLayoutX(27);
-                description.setLayoutY(187);
+                description.setLayoutY(330);
                 textArea.setLayoutX(27);
-                textArea.setLayoutY(208);
+                textArea.setLayoutY(350);
                 textArea.setPrefSize(317, 100);
                 description.setText("Descrição da função");
+                ChoiceBox choiceBox = new ChoiceBox();
+                choiceBox.setLayoutX(205);
+                choiceBox.setLayoutY(200);
+                choiceBox.getItems().addAll(generos);
                 Button buttonPrevious = new Button();
                 Button buttonNext = new Button();
                 buttonPrevious.setText("Anterior");
                 buttonPrevious.setLayoutX(30);
-                buttonPrevious.setLayoutY(315);
+                buttonPrevious.setLayoutY(550);
                 buttonNext.setText("Próximo");
                 buttonNext.setLayoutX(269);
-                buttonNext.setLayoutY(315);
+                buttonNext.setLayoutY(550);
                 buttonNext.setOnMouseClicked((MouseEvent event) -> {
                     try {
                         next();
@@ -257,23 +273,19 @@ public class FXMLController implements Initializable {
                     textInput[i] = new TextField();
                     labelsEmployees[i] = new Label();
                     layoutY += 50;
-                    if(i == 0 || i == 3 ) layoutY = 0;
-                    if(i > 2) layoutX = 178;
+                    if(i == 0 || i == 4 ) layoutY = 0;
+                    if(i > 3) layoutX = 178;
                     textInput[i].setLayoutX(27+layoutX);
                     textInput[i].setLayoutY(57+layoutY);
                     labelsEmployees[i].setLayoutX(27+layoutX);
                     labelsEmployees[i].setLayoutY(40+layoutY);
                     labelsEmployees[i].setText(campos[i]);
-                    employee.get(countEmployee).getChildren().add(textInput[i]);
-                    employee.get(countEmployee).getChildren().add(labelsEmployees[i]);
+                    employee.get(countEmployee).getChildren().addAll(textInput[i], labelsEmployees[i]);
                 }
                 tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
-                employee.get(countEmployee).getChildren().add(textArea);
-                employee.get(countEmployee).getChildren().add(description);
-                employee.get(countEmployee).getChildren().add(buttonNext);
-                employee.get(countEmployee).getChildren().add(buttonPrevious);
+                employee.get(countEmployee).getChildren().addAll(textArea,description,buttonNext,buttonPrevious,choiceBox,genero);
                 if(countEmployee != 0){
-                      employee.get(countEmployee-1).setVisible(false);
+                      scrollPane.get(countEmployee-1).setVisible(false);
                 }
                 countEmployee++;
         }
@@ -283,27 +295,33 @@ public class FXMLController implements Initializable {
     @FXML
     public void previous(){
         if(countEmployee > 0){
-            coordenador.get(coordenador.size()-1).membros.remove(coordenador.get(coordenador.size()-1).membros.size()-1);
+
         }
-        if(!employee.isEmpty()){
+        if(!scrollPane.isEmpty()){
+            //deletar membro
             countEmployee-=1;
-            employee.get(countEmployee).setVisible(false);
+            scrollPane.get(countEmployee).setVisible(false);
+            scrollPane.remove(countEmployee);
             employee.remove(countEmployee);
         }
         if(countEmployee == 0 && visiblePeople == false){
+            //deletar coordenador
+            project.coordenador.delete();
             cadastroPessoa.setVisible(true);
             visiblePeople = true;
             tittleDescription.setText("Coordenador");
             return;
         }
-        else if(employee.isEmpty()){
+        else if(scrollPane.isEmpty()){
+            //deletar projeto
+            project.delete();
             cadastroProjeto.setVisible(true);
             cadastroPessoa.setVisible(false);
             tittleDescription.setText("Projeto");
             return;
         }
         tittleDescription.setText(String.format("%dºmembro:", countEmployee));
-        employee.get(countEmployee-1).setVisible(true);
+        scrollPane.get(countEmployee-1).setVisible(true);
     }
     
     public String converteDatas(LocalDate data){

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -74,7 +75,23 @@ public class Project implements Valida, ConverterString{
         }
         return this.id;
     }
-    
+         public void delete(){
+            Connection conn = null;
+            PreparedStatement st = null;
+        try{
+            conn = DB.getConnection();
+            st = conn.prepareStatement(
+            "DELETE FROM projeto " 
+                    + "WHERE "
+                    + "id = ?"
+            );
+        st.setInt(1, this.id);
+        st.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }  
     public void showDataProjetc(){
         System.out.printf("%nNome do Projeto: %s%nDescrição do Projeto: %s%n",this.nomeProjeto, this.descricaoProjeto);
     }

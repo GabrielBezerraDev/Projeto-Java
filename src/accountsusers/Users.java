@@ -4,6 +4,7 @@
  */
 package accountsusers;
 import db.DB;
+import db.DbIntegrityException;
 import interfaces.*;
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class Users implements Valida, ConverterString{
     protected String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
-    public int projeto_id;
+    public int projeto_id, id;
     protected String[] dadosUser;
     public String erros;
     protected Users (String nome, String sobrenome, String cpf, String contato, String email, String senha, String confirmaSenha, String genero, String inicio, String fim, String cargo, int projeto_id){
@@ -165,7 +166,7 @@ public class Users implements Valida, ConverterString{
             String.format("INSERT INTO %s"
                     +"(nome, sobrenome, cpf, contato, email, senha, genero, data_inicio, data_fim, projeto_id)"
                     +"VALUES"
-                    +"(?,?,?,?,?,?,?,?,?,?)",this.cargo));
+                    +"(?,?,?,?,?,?,?,?,?,?)",this.cargo),Statement.RETURN_GENERATED_KEYS);
         st.setString(1, this.nome);
         st.setString(2,this.sobrenome);
         st.setString(3, this.cpf);
@@ -177,11 +178,10 @@ public class Users implements Valida, ConverterString{
         st.setDate(9, Date.valueOf(dateFim));
         st.setInt(10, this.projeto_id);
         st.executeUpdate();
-//        ResultSet rs = st.getGeneratedKeys();
-//        while(rs.next()){
-//                this.id = rs.getInt(1);
-//                System.out.println(this.id);
-//        }
+        ResultSet rs = st.getGeneratedKeys();
+        while(rs.next()){
+                this.id = rs.getInt(1);
+        }
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -191,5 +191,25 @@ public class Users implements Valida, ConverterString{
             DB.closeConnection();
         }
     }
-
+        
+    public void delete(){
+            Connection conn = null;
+            PreparedStatement st = null;
+        try{
+            conn = DB.getConnection();
+            st = conn.prepareStatement(
+            String.format("DELETE FROM %s "
+                    + "WHERE "
+                    + "id = ? "
+                    + "AND "
+                    + "projeto_id = ? ",this.cargo)
+            );
+        st.setInt(1,this.id);
+        st.setInt(2, this.projeto_id);
+        st.executeUpdate();
+        }
+        catch(SQLException e){
+            throw new DbIntegrityException(e.getMessage());
+        }
+    }
 }

@@ -64,7 +64,6 @@ public class DB {
         if(st != null){
             try {
                 st.close();
-                st = null;
             } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }

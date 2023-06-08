@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -37,12 +36,11 @@
                         <TextArea fx:id="descricaoProjeto" layoutX="24.0" layoutY="190.0" prefHeight="137.0" prefWidth="336.0" />
                         <Label layoutX="24.0" layoutY="65.0" prefHeight="17.0" prefWidth="133.0" text="Nome do projeto*" />
                         <Label layoutX="24.0" layoutY="119.0" prefHeight="17.0" prefWidth="363.0" text="Informe quantos funcionários trabalharam no projeto*" />
-                        <Label layoutX="24.0" layoutY="169.0" prefHeight="17.0" prefWidth="198.0" text="Descrição do projeto" />
+                        <Label layoutX="24.0" layoutY="169.0" prefHeight="17.0" prefWidth="198.0" text="Descrição do projeto*" />
                         <Button layoutX="24.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#cadastrado" text="Próximo" />
                         <DatePicker fx:id="inicioProjeto" layoutX="24.0" layoutY="376.0" />
                         <DatePicker fx:id="fimProjeto" layoutX="24.0" layoutY="427.0" />
-                        <RadioButton fx:id="opcaoProjeto" layoutX="24.0" layoutY="461.0" mnemonicParsing="false" text="Sem data prevista." />
-                        <Label layoutX="24.0" layoutY="355.0" prefHeight="17.0" prefWidth="198.0" text="Início do projeto" />
+                        <Label layoutX="24.0" layoutY="355.0" prefHeight="17.0" prefWidth="198.0" text="Início do projeto*" />
                         <Label layoutX="24.0" layoutY="405.0" prefHeight="17.0" prefWidth="198.0" text="Fim do projeto" />
                         <Text fill="RED" layoutX="47.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos com o asterisco são obrigatórios" wrappingWidth="284.13671875" />
                      </children>
@@ -77,8 +75,7 @@
                         <DatePicker fx:id="inicioGerenciamento" layoutX="34.0" layoutY="385.0" prefHeight="24.0" prefWidth="109.0" />
                         <Label layoutX="34.0" layoutY="356.0" prefHeight="17.0" prefWidth="154.0" text="Início gerenciamento*" />
                         <DatePicker fx:id="terminioGerenciamento" layoutX="208.0" layoutY="383.0" prefHeight="24.0" prefWidth="109.0" />
-                        <Label layoutX="208.0" layoutY="356.0" prefHeight="17.0" prefWidth="169.0" text="Termino gerenciamento*" />
-                        <RadioButton layoutX="208.0" layoutY="412.0" mnemonicParsing="false" text="Sem data prevista." />
+                        <Label layoutX="208.0" layoutY="356.0" prefHeight="17.0" prefWidth="169.0" text="Termino gerenciamento" />
                         <Button layoutX="242.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#next" text="Próximo" />
                         <Text fill="RED" layoutX="63.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="campos com o asterisco são obrigatórios" wrappingWidth="284.13671875" />
                      </children>
