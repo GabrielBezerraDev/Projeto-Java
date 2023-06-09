@@ -33,7 +33,7 @@
                      <children>
                         <TextField fx:id="nomeProjeto" layoutX="24.0" layoutY="89.0" />
                         <TextField fx:id="amountEmployee" layoutX="24.0" layoutY="138.0" prefHeight="25.0" prefWidth="41.0" />
-                        <TextArea fx:id="descricaoProjeto" layoutX="24.0" layoutY="190.0" prefHeight="137.0" prefWidth="336.0" />
+                        <TextArea fx:id="descricaoProjeto" layoutX="24.0" layoutY="190.0" prefHeight="137.0" prefWidth="336.0" wrapText="true" />
                         <Label layoutX="24.0" layoutY="65.0" prefHeight="17.0" prefWidth="133.0" text="Nome do projeto*" />
                         <Label layoutX="24.0" layoutY="119.0" prefHeight="17.0" prefWidth="363.0" text="Informe quantos funcionários trabalharam no projeto*" />
                         <Label layoutX="24.0" layoutY="169.0" prefHeight="17.0" prefWidth="198.0" text="Descrição do projeto*" />

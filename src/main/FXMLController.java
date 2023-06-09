@@ -40,9 +40,10 @@ import project.Project;
 
 
 public class FXMLController implements Initializable {
-    public List<Membros> deleteMembros = new ArrayList<>();
+    public static List<Membros> deleteMembros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
-    private Project project;
+    PopUpController popUp = new PopUpController();
+    public static Project project;
     private boolean visiblePeople = true;
     private int countEmployee = 0;
     private int i = 0;
@@ -217,9 +218,15 @@ public class FXMLController implements Initializable {
                         countDados++;
                 }
             }
-            String dataInicio = converteDatas(inicioDataMembro.getValue());
-            String dataFim = converteDatas(fimDataMembro.getValue());
+            String dataInicio = "";
+            String dataFim = "";
+            if(inicioDataMembro.getValue() != null) dataInicio = converteDatas(inicioDataMembro.getValue());
+            if(fimDataMembro.getValue() != null) dataFim = converteDatas(fimDataMembro.getValue());
             project.membro = new Membros(dadosMembros[0].getText(),dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText(),dadosMembros[6].getText(),(String) choiceBox.getValue(),dataInicio,dataFim, project.id);
+            if(!project.membro.validacao()){
+                popUpError(project.membro.erros);
+                return;
+            }
             project.membro.setData();
             deleteMembros.add(project.membro);
         }
@@ -267,6 +274,7 @@ public class FXMLController implements Initializable {
                 textArea.setLayoutX(27);
                 textArea.setLayoutY(266);
                 textArea.setPrefSize(317, 100);
+                textArea.setWrapText(true);
                 description.setText("Descrição da função");
                 choiceBox.setLayoutX(205);
                 choiceBox.setLayoutY(206);
@@ -308,7 +316,14 @@ public class FXMLController implements Initializable {
                       scrollPane.get(countEmployee-1).setVisible(false);
                 }
                 countEmployee++;
+            }
+            else if((countEmployee == Integer.parseInt(amountEmployee.getText()) || amountEmployee.getText() == null) && Integer.parseInt(amountEmployee.getText()) != 0){
+                System.out.println("ENTROU PORRA");
+                popUp.popUpWarnings();
+            }
         }
+        else{
+            popUp.popUpWarnings();
         }
     }
     
@@ -319,9 +334,12 @@ public class FXMLController implements Initializable {
         }
         if(!scrollPane.isEmpty()){
             //deletar membro
-            deleteMembros.get(deleteMembros.size()-1).delete();
-            System.out.println(deleteMembros.get(deleteMembros.size()-1).nome);
-            deleteMembros.remove(deleteMembros.size()-1);
+            if(!deleteMembros.isEmpty()){
+                deleteMembros.get(deleteMembros.size()-1).delete();
+                System.out.println(deleteMembros.get(deleteMembros.size()-1).nome);
+                deleteMembros.remove(deleteMembros.size()-1);
+            }
+
             countEmployee-=1;
             scrollPane.get(countEmployee).setVisible(false);
             scrollPane.remove(countEmployee);
@@ -354,9 +372,8 @@ public class FXMLController implements Initializable {
     }
     
     public void popUpError(String error) throws IOException{
-        PopUpController popUp = new PopUpController();
         popUp.erros = error;
-        popUp.popUp();
+        popUp.popUpError();
     }
     
     @Override
