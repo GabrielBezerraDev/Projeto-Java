@@ -1,0 +1,21 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.base.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.controls.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.fxml.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.graphics.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.media.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.swing.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx.web.jar",
+        "/home/dti-dev-03/Downloads/javafx/javafx-sdk-20.0.1/lib/javafx-swt.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.base.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.controls.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.fxml.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.graphics.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.media.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.swing.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx.web.jar",
+        "c:\\javafx-sdk-20.0.1\\lib\\javafx-swt.jar"
+    ]
+}
