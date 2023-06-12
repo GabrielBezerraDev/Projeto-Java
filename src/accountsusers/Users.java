@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @author Jonathan
  */
 
-public class Users implements Valida, ConverterString{
+public class Users implements Valida, ConverterString, ConsultarDB{
     public String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
     public int projeto_id, id;
     protected String[] dadosUser;
@@ -192,28 +192,8 @@ public class Users implements Valida, ConverterString{
         }
     }
     
-    public boolean consultaDB(){
-        boolean user = true;
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
-        try{
-            conn = DB.getConnection();
-            st = conn.createStatement();
-            rs = st.executeQuery(String.format("select * from %s "
-                    + "where cpf = \"%s\"",this.cargo, this.cpf));
-            if(!rs.next()){
-                user = false;
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            DB.closeStatement(st);
-            DB.closeConnection();
-        }
-        return user;
+    public Object[] consultandoDB(){
+        return consultarDB(this.cargo,this.cpf);
     }    
     
     public void delete(){

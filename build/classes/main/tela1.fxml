@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1153.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0404" height="72.0" stroke="BLACK" strokeType="INSIDE" width="1153.0" />
+      <ImageView fitHeight="145.0" fitWidth="151.0" layoutX="78.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="930.0">
+         <image>
+            <Image url="@../Downloads/blank-profile-picture-973460_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="256.0" layoutY="85.0" prefHeight="36.0" prefWidth="139.0" text="Projeto: Projeto-Java" />
+      <Label layoutX="256.0" layoutY="121.0" prefHeight="36.0" prefWidth="139.0" text="Nome:" />
+      <Label layoutX="256.0" layoutY="157.0" prefHeight="36.0" prefWidth="139.0" text="Funçao:" />
+      <Label layoutX="256.0" layoutY="193.0" prefHeight="36.0" prefWidth="139.0" text="Inicio do projeto:" />
+      <Button layoutX="454.0" layoutY="91.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" style="-fx-background-color: #ff0404;" text="Acessar dados" textFill="WHITE" />
+      <Button layoutX="471.0" layoutY="139.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #ff0404;" text="Editar dados" textFill="WHITE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eef0f2" height="367.0" layoutX="78.0" layoutY="339.0" stroke="RED" strokeType="INSIDE" width="517.0" />
+      <Button layoutX="78.0" layoutY="294.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="151.0" style="-fx-background-color: #ff0404;" text="Adicionar membro" textFill="WHITE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eef0f2" height="585.0" layoutX="703.0" layoutY="121.0" stroke="#f80000" strokeType="INSIDE" width="398.0" />
+      <Text layoutX="854.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 15px;" text="Notificaçoes" wrappingWidth="97.0" />
+   </children>
+</AnchorPane>

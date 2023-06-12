@@ -37,9 +37,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import project.Project;
+import interfaces.*;
 
 
-public class FXMLController implements Initializable {
+public class FXMLController implements Initializable, ConsultarDB {
     public static List<Membros> deleteMembros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
     PopUpController popUp = new PopUpController();
@@ -52,6 +53,9 @@ public class FXMLController implements Initializable {
     @FXML
      List<Pane> employee = new ArrayList<>();
         
+    @FXML
+    private Button loginCoordenador;
+    
     @FXML
     private ChoiceBox<String> generoCoordenador;
     
@@ -68,7 +72,7 @@ public class FXMLController implements Initializable {
     private Label animation;
     
     @FXML
-    private TextField amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, contatoCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador, nomeProjeto;
+    private TextField senhaValidaCoordenador, cpfValidaCoordenador, amountEmployee, nomeCoordenador, sobrenomeCoordenador, cpfCoordenador, contatoCoordenador, emailCoordenador, senhaCoordenador, confirmarSenhaCoordenador, nomeProjeto;
     
     @FXML
     private TextArea descricaoProjeto;
@@ -81,7 +85,7 @@ public class FXMLController implements Initializable {
     private  ImageView image;
     
     @FXML
-    private Pane programador, supervisionar, main;
+    private Pane programador, supervisionar, main, paneCoordenador, paneMembro, paneLogin;
     
     @FXML
     private ScrollPane cadastroPessoa, cadastroProjeto;
@@ -100,9 +104,29 @@ public class FXMLController implements Initializable {
     
     @FXML
     public void supervisor(){
+        TextField fieldCpfCoordenador = (TextField) paneCoordenador.getChildren().get(3);
+        TextField fieldSenhaCoordenador = (TextField) paneCoordenador.getChildren().get(4);
+        Button buttonCoordenador = (Button) paneCoordenador.getChildren().get(5);
+        buttonCoordenador.setOnMouseClicked((MouseEvent event) -> {
+            entrar(fieldCpfCoordenador,fieldSenhaCoordenador,"coordenador");
+        });
         supervisionar.setVisible(true);
         image.setVisible(false);
         programador.setVisible(false);
+        animation.setVisible(false);
+    }
+    
+        @FXML
+    public void funcionario(){
+        TextField fieldCpfMembro = (TextField) paneMembro.getChildren().get(3);
+        TextField fieldSenhaMembro= (TextField) paneMembro.getChildren().get(4);
+        Button buttonMembro = (Button) paneMembro.getChildren().get(5);
+        buttonMembro.setOnMouseClicked((MouseEvent event) -> {
+            entrar(fieldCpfMembro,fieldSenhaMembro, "membro");
+        });
+        supervisionar.setVisible(false);
+        image.setVisible(false);
+        programador.setVisible(true);
         animation.setVisible(false);
     }
     
@@ -156,28 +180,34 @@ public class FXMLController implements Initializable {
             timer.schedule(task, 500);
         }
     }
-    
-    @FXML
-    public void funcionario(){
-        supervisionar.setVisible(false);
-        image.setVisible(false);
-        programador.setVisible(true);
-        animation.setVisible(false);
+        
+    public void entrar(TextField cpf, TextField senha, String cargo){
+        try {
+            if(!(boolean) consultarDB(cargo,cpf.getText())[0]){
+                popUp.erros = "CPF ou senha incorreto.";
+                popUp.popUpError();
+                return;
+            }
+            else if(!((String) consultarDB(cargo,cpf.getText())[1]).equals((String) senha.getText())){
+                popUp.erros = "CPF ou senha incorreto.";
+                popUp.popUpError();
+                return;
+            }
+            System.out.println(paneCoordenador.getChildren());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("telaPrincipal.fxml"));
+            Parent root = loader.load();
+            scene = painel.getScene();
+            Stage stage = (Stage) painel.getScene().getWindow();
+            stage.setMinHeight(500);
+            stage.setWidth(1153);
+            stage.setHeight(756);
+            stage.setScene(scene);
+            scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
+            scene.setRoot(root);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-//    @FXML
-//    public void entrarCoordenador() throws IOException{
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("telaPrincipal.fxml"));
-//        Parent root = loader.load();
-//        scene = painel.getScene();
-//        Stage stage = (Stage) painel.getScene().getWindow();
-//        stage.setMinHeight(500); 
-//        stage.setWidth(1153);
-//        stage.setHeight(756);
-//        stage.setScene(scene);
-//        scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
-//        scene.setRoot(root);
-//    }
     
     @FXML
     public void cadastro() throws IOException{
@@ -223,7 +253,7 @@ public class FXMLController implements Initializable {
                 popUpError(project.coordenador.erros);
                 return;
             }
-            if(project.coordenador.consultaDB()){
+            if((boolean)project.coordenador.consultandoDB()[0]){
                 popUp.erros = "Coordenador já existe";
                 popUp.popUpError();
                 return;
@@ -250,7 +280,7 @@ public class FXMLController implements Initializable {
                 popUpError(project.membro.erros);
                 return;
             }
-            if(project.membro.consultaDB()){
+            if((boolean)project.membro.consultandoDB()[0]){
                 popUp.erros = "Membro já existe";
                 popUp.popUpError();
                 return;
@@ -407,6 +437,9 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() ->{
+                paneLogin = (Pane) painel.getChildren().get(1);
+                paneCoordenador = (Pane) paneLogin.getChildren().get(0);
+                paneMembro = (Pane) paneLogin.getChildren().get(1);
                 cadastroPessoa.setVisible(false);
                 cadastroProjeto.setVisible(true);
                 generoCoordenador.getItems().addAll(generos);
