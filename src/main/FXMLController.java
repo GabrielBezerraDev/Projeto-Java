@@ -60,7 +60,7 @@ public class FXMLController implements Initializable, ConsultarDB {
     private ChoiceBox<String> generoCoordenador;
     
     @FXML
-    private ChoiceBox choiceBox = new ChoiceBox();
+    private ChoiceBox choiceBox = new ChoiceBox(),  choiceCadastroCoordenador;
     
     @FXML
     public GridPane painel = new GridPane();
@@ -212,14 +212,25 @@ public class FXMLController implements Initializable, ConsultarDB {
     @FXML
     public void cadastro() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML1.fxml"));
-        Parent root = loader.load();
+        Parent rootGrid = loader.load();
         scene = painel.getScene();
         Stage stage = (Stage) painel.getScene().getWindow();
         stage.setMinHeight(500); 
         stage.setScene(scene);
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
-        scene.setRoot(root);
-        sceneGrid = (Scene) root.getChildrenUnmodifiable().get(0).getScene();
+        scene.setRoot(rootGrid);
+        System.out.println(rootGrid.getChildrenUnmodifiable());
+        Pane paneCadastroCoordenador = (Pane) rootGrid.getChildrenUnmodifiable().get(0);
+        System.out.println(paneCadastroCoordenador.getChildren());
+        ScrollPane scrollCadastroCoordenador = (ScrollPane) paneCadastroCoordenador.getChildrenUnmodifiable().get(0);
+        System.out.println("Tentando achar o elemento: "+scrollCadastroCoordenador.getContent());
+        Pane telaCadastroCoordenador = (Pane) scrollCadastroCoordenador.getContent();
+        System.out.println(telaCadastroCoordenador.getChildren());
+        Pane camposCadastrosCoordenador = (Pane) telaCadastroCoordenador.getChildren().get(0);
+        choiceCadastroCoordenador = (ChoiceBox) camposCadastrosCoordenador.getChildren().get(14);
+        System.out.println("O elemento pegado: "+choiceCadastroCoordenador);
+        choiceCadastroCoordenador.getItems().addAll(generos);
+        sceneGrid = (Scene) rootGrid.getChildrenUnmodifiable().get(0).getScene();
     }
     
     @FXML
@@ -289,6 +300,8 @@ public class FXMLController implements Initializable, ConsultarDB {
             deleteMembros.add(project.membro);
         }
         System.out.println(amountEmployee.getText());
+        //COMENTÁRIO DO DIA 11/06/2023:
+        //SEPARAR ESSA FUNÇÃO EM OUTRA, PARA USAR DEPOIS.
         if(!amountEmployee.getText().isEmpty()){
             if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
                 int layoutX = 0;
@@ -376,7 +389,6 @@ public class FXMLController implements Initializable, ConsultarDB {
                 countEmployee++;
             }
             else if((countEmployee == Integer.parseInt(amountEmployee.getText()) || amountEmployee.getText() == null) && Integer.parseInt(amountEmployee.getText()) != 0){
-                System.out.println("ENTROU PORRA");
                 popUp.popUpWarnings();
             }
         }
@@ -442,7 +454,6 @@ public class FXMLController implements Initializable, ConsultarDB {
                 paneMembro = (Pane) paneLogin.getChildren().get(1);
                 cadastroPessoa.setVisible(false);
                 cadastroProjeto.setVisible(true);
-                generoCoordenador.getItems().addAll(generos);
         });
         try{
                  Platform.runLater(() -> {
