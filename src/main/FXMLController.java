@@ -38,9 +38,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import project.Project;
 import interfaces.*;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 
-public class FXMLController implements Initializable, ConsultarDB {
+
+public class FXMLController implements Initializable, VerificarEfetivo {
     public static List<Membros> deleteMembros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
     PopUpController popUp = new PopUpController();
@@ -95,12 +98,21 @@ public class FXMLController implements Initializable, ConsultarDB {
     
     @FXML
    private  String elemento = "", texto = "O MELHOR PARA SUA EQUIPE.";
+    
+    @FXML
+    public static Parent rootTelaPrincipal;
    
     @FXML
     boolean realese = false, end = false;
     
     @FXML
     private static Scene scene;
+    
+    @FXML
+    private Screen screen = Screen.getPrimary();
+    
+    @FXML
+    Rectangle2D bounds = screen.getBounds();
     
     @FXML
     public void supervisor(){
@@ -195,15 +207,19 @@ public class FXMLController implements Initializable, ConsultarDB {
             }
             System.out.println(paneCoordenador.getChildren());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaPrincipal.fxml"));
-            Parent root = loader.load();
+            rootTelaPrincipal = loader.load();
             scene = painel.getScene();
             Stage stage = (Stage) painel.getScene().getWindow();
-            stage.setMinHeight(500);
-            stage.setWidth(1153);
-            stage.setHeight(756);
+            stage.setMaxWidth(bounds.getWidth());
+            stage.setMaxHeight(bounds.getHeight());
+            stage.setWidth(bounds.getWidth());
+            stage.setHeight(bounds.getHeight());
+            stage.setX(0);
+            stage.setY(0);
+            stage.setResizable(true);
             stage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
-            scene.setRoot(root);
+            scene.setRoot(rootTelaPrincipal);
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,16 +235,11 @@ public class FXMLController implements Initializable, ConsultarDB {
         stage.setScene(scene);
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         scene.setRoot(rootGrid);
-        System.out.println(rootGrid.getChildrenUnmodifiable());
         Pane paneCadastroCoordenador = (Pane) rootGrid.getChildrenUnmodifiable().get(0);
-        System.out.println(paneCadastroCoordenador.getChildren());
         ScrollPane scrollCadastroCoordenador = (ScrollPane) paneCadastroCoordenador.getChildrenUnmodifiable().get(0);
-        System.out.println("Tentando achar o elemento: "+scrollCadastroCoordenador.getContent());
         Pane telaCadastroCoordenador = (Pane) scrollCadastroCoordenador.getContent();
-        System.out.println(telaCadastroCoordenador.getChildren());
         Pane camposCadastrosCoordenador = (Pane) telaCadastroCoordenador.getChildren().get(0);
         choiceCadastroCoordenador = (ChoiceBox) camposCadastrosCoordenador.getChildren().get(14);
-        System.out.println("O elemento pegado: "+choiceCadastroCoordenador);
         choiceCadastroCoordenador.getItems().addAll(generos);
         sceneGrid = (Scene) rootGrid.getChildrenUnmodifiable().get(0).getScene();
     }

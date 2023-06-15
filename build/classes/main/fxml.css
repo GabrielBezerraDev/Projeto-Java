@@ -3,12 +3,17 @@
     -fx-cursor:hand;
 }
 
-.button{
+Button{
     -fx-background-color: red;
     -fx-text-fill:white;
 }
 
-.button:hover{
+Text {
+    -fx-padding: 0px 0px 0px 10px;
+    -fx-fill: red;
+}
+
+Button:hover{
     -fx-cursor:hand;
 }
 

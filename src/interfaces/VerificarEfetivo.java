@@ -14,7 +14,7 @@ import java.sql.Statement;
  *
  * @author gabrielbezerra
  */
-public interface ConsultarDB {
+public interface VerificarEfetivo {
     default Object[] consultarDB(String cargo, String cpf){
         String senha = null;
         boolean user = true;

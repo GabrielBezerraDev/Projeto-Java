@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @author Jonathan
  */
 
-public class Users implements Valida, ConverterString, ConsultarDB{
+public class Users implements Valida, ConverterString, VerificarEfetivo{
     public String nome, sobrenome, cpf, contato, email, senha, confirmaSenha, genero, inicio, fim, cargo;
     public int projeto_id, id;
     protected String[] dadosUser;
