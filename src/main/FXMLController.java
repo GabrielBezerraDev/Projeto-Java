@@ -39,6 +39,7 @@ import javafx.scene.control.ScrollPane;
 import project.Project;
 import interfaces.*;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 
 
@@ -220,6 +221,16 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             stage.setScene(scene);
             scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
             scene.setRoot(rootTelaPrincipal);
+            System.out.println("Os filhos dessa tela: "+rootTelaPrincipal.getChildrenUnmodifiable().get(5));
+            Button adicionarMembro = (Button) rootTelaPrincipal.getChildrenUnmodifiable().get(5);
+            TelaPrincipalController escolhaUser = new TelaPrincipalController();
+            adicionarMembro.setOnMouseClicked((MouseEvent event) -> {
+                try {
+                    escolhaUser.adicionarMembro();
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }

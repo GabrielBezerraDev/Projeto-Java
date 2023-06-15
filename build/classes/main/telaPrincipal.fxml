@@ -15,7 +15,7 @@
          <content>
             <Pane prefHeight="628.0" prefWidth="1866.0">
                <children>
-                  <Pane prefHeight="54.0" prefWidth="1866.0">
+                  <Pane prefHeight="54.0" prefWidth="1866.0" style="-fx-border-style: solid; -fx-border-color: black; border-width: 2px;">
                      <children>
                         <Label alignment="CENTER" prefHeight="53.0" prefWidth="240.0" style="-fx-background-color: red;" styleClass="tabela" text="NOME" textFill="WHITE" wrapText="true" />
                         <Label alignment="CENTER" layoutX="241.0" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: red;" styleClass="tabela" text="CPF" textFill="WHITE" wrapText="true" />
@@ -29,24 +29,26 @@
                         <Label alignment="CENTER" layoutX="1322.0" prefHeight="53.0" prefWidth="240.0" style="-fx-background-color: red;" styleClass="tabela" text="DATA FIM DO CONTRATO" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
                      </children>
                   </Pane>
+                  <Label alignment="CENTER" layoutY="54.0" prefHeight="53.0" prefWidth="240.0" style="-fx-background-color: white; -fx-border-style: solid;" styleClass="tabela" text="Gabriel Bezerra de Jesus" wrapText="true" />
+                  <Label alignment="CENTER" layoutX="240.0" layoutY="54.0" prefHeight="53.0" prefWidth="205.0" style="-fx-background-color: white; -fx-border-style: solid;" styleClass="tabela" text="03455342205" wrapText="true" />
                </children>
             </Pane>
          </content>
       </ScrollPane>
-      <ScrollPane layoutX="1326.0" layoutY="108.0" prefHeight="188.0" prefWidth="430.0" style="-fx-border-style: solid;">
+      <ScrollPane layoutX="1326.0" layoutY="108.0" prefHeight="188.0" prefWidth="430.0" style="-fx-border-style: solid; -fx-border-color: red; -fx-border-width: 2px;">
          <content>
-            <Pane prefHeight="184.0" prefWidth="426.0" />
+            <Pane prefHeight="181.0" prefWidth="424.0" />
          </content>
       </ScrollPane>
       <Label alignment="CENTER" layoutX="1455.0" layoutY="81.0" prefHeight="20.0" prefWidth="164.0" text="Notificaçoes" />
-      <Pane layoutX="20.0" layoutY="112.0" prefHeight="188.0" prefWidth="1212.0" style="-fx-border-radius: 50; -fx-border-style: solid;">
+      <Pane layoutX="20.0" layoutY="112.0" prefHeight="188.0" prefWidth="1212.0" style="-fx-border-radius: 50; -fx-border-style: solid; -fx-border-color: red; -fx-border-width: 2px;">
          <children>
             <Label layoutX="299.0" layoutY="47.0" prefHeight="36.0" prefWidth="139.0" text="Projeto: Projeto-Java" />
             <Label layoutX="299.0" layoutY="82.0" prefHeight="36.0" prefWidth="267.0" text="Coordenador do Projeto:" />
             <Label layoutX="529.0" layoutY="80.0" prefHeight="36.0" prefWidth="139.0" text="Funçao:" />
             <Label layoutX="522.0" layoutY="49.0" prefHeight="36.0" prefWidth="139.0" text="Inicio do projeto:" />
             <Button layoutX="974.0" layoutY="38.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" style="-fx-background-color: #ff0404;" text="Acessar dados" textFill="WHITE" />
-            <Button layoutX="991.0" layoutY="94.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #ff0404;" text="Editar dados" textFill="WHITE" />
+            <Button layoutX="974.0" layoutY="94.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="133.0" style="-fx-background-color: #ff0404;" text="Editar dados" textFill="WHITE" />
             <ImageView fitHeight="124.0" fitWidth="170.0" layoutX="21.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>

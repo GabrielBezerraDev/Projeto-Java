@@ -8,11 +8,6 @@ Button{
     -fx-text-fill:white;
 }
 
-Text {
-    -fx-padding: 0px 0px 0px 10px;
-    -fx-fill: red;
-}
-
 Button:hover{
     -fx-cursor:hand;
 }
