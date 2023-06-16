@@ -5,6 +5,6 @@
 
 <AnchorPane fx:id="FAZ_O_L" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="351.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TelaPrincipalController">
    <children>
-      <Pane prefHeight="43.0" prefWidth="351.0" style="-fx-background-color: red;" />
+      <Pane prefHeight="29.0" prefWidth="351.0" style="-fx-background-color: red;" />
    </children>
 </AnchorPane>
