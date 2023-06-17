@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Project implements Valida, ConverterString{
-    public Coordenador coordenador;
-    public Membros membro;
+    public static Coordenador coordenador;
+    public static Membros membro;
     public int id;
     private String nomeProjeto, descricaoProjeto, inicio, fim;
     private String[] dadosProjeto;

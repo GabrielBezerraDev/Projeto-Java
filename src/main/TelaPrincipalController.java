@@ -10,19 +10,30 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.FXMLController;
 
 /**
  *
  * @author gabrielbezerra
  */
 public class TelaPrincipalController {
+    
+    private Stage stage ;
+    private Pane paneChoice;
+    private TextField quantidadeMembros;
+    public static int idEquipe;
     
 //    public void pegarUsuarios(){
 //        String senha = null;
@@ -55,18 +66,37 @@ public class TelaPrincipalController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popUpChoice.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         Label question = new Label();
-        TextField quantidadeMembros = new TextField();
+        Button continuar = new Button();
+        continuar.setOnMouseClicked((MouseEvent event) -> {
+            try {
+                novosMembros();
+            } catch (IOException ex) {
+                Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        quantidadeMembros = new TextField();
+        continuar.setText("Continuar");
+        continuar.setLayoutX(140);
+        continuar.setLayoutY(125);
         quantidadeMembros.setLayoutX(94);
         quantidadeMembros.setLayoutY(80);
         question.setLayoutX(50);
         question.setLayoutY(50);
         question.setText("Quantos membros você deseja adicionar?");
         System.out.println("O filho desse arrombado: "+root.getChildrenUnmodifiable().get(0));
-        AnchorPane anchorChoice = (AnchorPane) root;
-        anchorChoice.getChildren().addAll(question,quantidadeMembros);
-        Stage stage = new Stage();
+        paneChoice = (Pane) root;
+        paneChoice.getChildren().addAll(question,quantidadeMembros, continuar);
+        stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void novosMembros() throws IOException{
+        stage.setWidth(790);
+        stage.setHeight(500);
+        FXMLController telasMembros = new FXMLController();
+        telasMembros.telaCadastroMembro(quantidadeMembros, paneChoice, idEquipe,false);
     }
 }

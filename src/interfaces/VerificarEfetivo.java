@@ -16,6 +16,7 @@ import java.sql.Statement;
  */
 public interface VerificarEfetivo {
     default Object[] consultarDB(String cargo, String cpf){
+        int id = 0;
         String senha = null;
         boolean user = true;
         Connection conn = null;
@@ -31,6 +32,7 @@ public interface VerificarEfetivo {
             }
             else{
                 senha = rs.getString("senha");
+                id = rs.getInt("id");
             }
         }
         catch(SQLException e){
@@ -40,9 +42,10 @@ public interface VerificarEfetivo {
             DB.closeStatement(st);
             DB.closeConnection();
         }
-        Object[] resultado = new Object[2];
+        Object[] resultado = new Object[3];
         resultado[0] = user;
         resultado[1] = senha;
+        resultado[2] = id;
         return resultado ;
 }
 }

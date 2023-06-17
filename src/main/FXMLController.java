@@ -45,7 +45,7 @@ import javafx.stage.Screen;
 
 
 public class FXMLController implements Initializable, VerificarEfetivo {
-    public static List<Membros> deleteMembros = new ArrayList<>();
+    public static List<Membros> membros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
     PopUpController popUp = new PopUpController();
     public static Project project;
@@ -142,57 +142,6 @@ public class FXMLController implements Initializable, VerificarEfetivo {
         programador.setVisible(true);
         animation.setVisible(false);
     }
-    
-    @FXML
-    public void animation(){
-        animation.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask(){
-            @Override
-            public void run() {
-                String[] teste = texto.split("");
-                elemento += teste[i];
-                 Platform.runLater(() -> {
-                     animation.setText(elemento);               
-                 });
-                 i++;
-                if(i != texto.length() ) animation();
-            }
-        };
-        timer.schedule(task, 80);
-    }
-    
-    @FXML
-    public void ponto(){
-        Timer timer = new Timer();
-        TimerTask task;
-        task = new TimerTask( ){
-            @Override
-            public void run() {
-                if(realese == false){
-                    Platform.runLater(() -> {
-                          animation.setText(elemento.substring(0, elemento.length()-1));
-                          realese = true;
-                          ponto();
-                     });
-                }
-                else{
-                          Platform.runLater(() -> {
-                            animation.setText(elemento);
-                            realese=false;
-                            ponto();
-                     });
-                }
-            }
-        };
-        if(end == false)  { 
-            timer.schedule(task, 3000);
-            end = true;
-        }
-        else{
-            timer.schedule(task, 500);
-        }
-    }
         
     public void entrar(TextField cpf, TextField senha, String cargo){
         try {
@@ -206,6 +155,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 popUp.popUpError();
                 return;
             }
+            TelaPrincipalController.idEquipe = (int) consultarDB(cargo,cpf.getText())[2];
             System.out.println(paneCoordenador.getChildren());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaPrincipal.fxml"));
             rootTelaPrincipal = loader.load();
@@ -293,7 +243,12 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             }
             project.coordenador.setData();
         }
-        if(countEmployee > 0){
+        telaCadastroMembro(amountEmployee, main, project.id,true);
+    }
+    
+    @FXML
+    public void telaCadastroMembro(TextField campo, Pane tela, int projetoId, boolean option) throws IOException{
+         if(countEmployee > 0){
             //Pegar o dados do Painel anterior (que eu acabei de criar).
             System.out.println("PEGANDO DADOS");
             TextField [] dadosMembros = new TextField[7];
@@ -308,24 +263,24 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             String dataFim = "";
             if(inicioDataMembro.getValue() != null) dataInicio = converteDatas(inicioDataMembro.getValue());
             if(fimDataMembro.getValue() != null) dataFim = converteDatas(fimDataMembro.getValue());
-            project.membro = new Membros(dadosMembros[0].getText(),dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText(),dadosMembros[6].getText(),(String) choiceBox.getValue(),dataInicio,dataFim, project.id);
-            if(!project.membro.validacao()){
-                popUpError(project.membro.erros);
+            Project.membro = new Membros(dadosMembros[0].getText(),dadosMembros[1].getText(),dadosMembros[2].getText(),dadosMembros[3].getText(),dadosMembros[4].getText(),dadosMembros[5].getText(),dadosMembros[6].getText(),(String) choiceBox.getValue(),dataInicio,dataFim, projetoId);
+            if(!Project.membro.validacao()){
+                popUpError(Project.membro.erros);
                 return;
             }
-            if((boolean)project.membro.consultandoDB()[0]){
+            if((boolean)Project.membro.consultandoDB()[0]){
                 popUp.erros = "Membro já existe";
                 popUp.popUpError();
                 return;
             }
-            project.membro.setData();
-            deleteMembros.add(project.membro);
+            Project.membro.setData();
+            membros.add(Project.membro);
         }
-        System.out.println(amountEmployee.getText());
+        System.out.println(campo.getText());
         //COMENTÁRIO DO DIA 11/06/2023:
         //SEPARAR ESSA FUNÇÃO EM OUTRA, PARA USAR DEPOIS.
-        if(!amountEmployee.getText().isEmpty()){
-            if(countEmployee != Integer.parseInt(amountEmployee.getText()) && Integer.parseInt(amountEmployee.getText()) != 0) {
+        if(!campo.getText().isEmpty()){
+            if(countEmployee != Integer.parseInt(campo.getText()) && Integer.parseInt(campo.getText()) != 0) {
                 int layoutX = 0;
                 int layoutY = 0;
                 Label[] labelsEmployees = new Label[7];
@@ -336,17 +291,23 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 Label inicioMembro = new Label();
                 Label fimMembro = new Label();
                 String[] campos = {"Nome*", "Sobrenome*","CPF*","Número de contato*","Email*","Senha*","Confirmar senha*"}; 
-                cadastroPessoa.setVisible(false);
+                if(option) {
+                    tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
+                    cadastroPessoa.setVisible(false);
+                }
+                else{
+                    
+                }
                 visiblePeople = false;
                 System.out.println("Verdadeiro");
-                System.out.println( Integer.parseInt(amountEmployee.getText()));
+                System.out.println( Integer.parseInt(campo.getText()));
                 scrollPane.add(new ScrollPane());
                 scrollPane.get(countEmployee).setPrefSize(420, 400);
                 employee.add(new Pane());
                 scrollPane.get(countEmployee).setContent(employee.get(countEmployee));
                 employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
                 employee.get(countEmployee).setPrefSize(356,540); 
-                main.getChildren().add(scrollPane.get(countEmployee));
+                tela.getChildren().add(scrollPane.get(countEmployee));
                 genero.setLayoutX(205);
                 genero.setLayoutY(186);
                 genero.setText("Gênero*");
@@ -382,7 +343,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 buttonNext.setLayoutY(486);
                 buttonNext.setOnMouseClicked((MouseEvent event) -> {
                     try {
-                        next();
+                        telaCadastroMembro( campo,  tela,  projetoId,  option);
                     } catch (IOException ex) {
                         Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -403,19 +364,18 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                     labelsEmployees[i].setText(campos[i]);
                     employee.get(countEmployee).getChildren().addAll(textInput[i], labelsEmployees[i]);
                 }
-                tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
                 employee.get(countEmployee).getChildren().addAll(textArea,description,buttonNext,buttonPrevious,choiceBox,genero, inicioMembro, fimMembro, inicioDataMembro, fimDataMembro);
                 if(countEmployee != 0){
                       scrollPane.get(countEmployee-1).setVisible(false);
                 }
                 countEmployee++;
             }
-            else if((countEmployee == Integer.parseInt(amountEmployee.getText()) || amountEmployee.getText() == null) && Integer.parseInt(amountEmployee.getText()) != 0){
-                popUp.popUpWarnings();
+            else if((countEmployee == Integer.parseInt(campo.getText()) || campo.getText() == null) && Integer.parseInt(campo.getText()) != 0){
+                popUp.popUpWarnings(option, tela);
             }
         }
         else{
-            popUp.popUpWarnings();
+            popUp.popUpWarnings(option, tela);
         }
     }
     
@@ -426,10 +386,10 @@ public class FXMLController implements Initializable, VerificarEfetivo {
         }
         if(!scrollPane.isEmpty()){
             //deletar membro
-            if(!deleteMembros.isEmpty()){
-                deleteMembros.get(deleteMembros.size()-1).delete();
-                System.out.println(deleteMembros.get(deleteMembros.size()-1).nome);
-                deleteMembros.remove(deleteMembros.size()-1);
+            if(!membros.isEmpty()){
+                membros.get(membros.size()-1).delete();
+                System.out.println(membros.get(membros.size()-1).nome);
+                membros.remove(membros.size()-1);
             }
 
             countEmployee-=1;
@@ -439,7 +399,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
         }
         if(countEmployee == 0 && visiblePeople == false){
             //deletar coordenador
-            project.coordenador.delete();
+            Project.coordenador.delete();
             cadastroPessoa.setVisible(true);
             visiblePeople = true;
             tittleDescription.setText("Coordenador");
@@ -466,6 +426,57 @@ public class FXMLController implements Initializable, VerificarEfetivo {
     public void popUpError(String error) throws IOException{
         popUp.erros = error;
         popUp.popUpError();
+    }
+    
+     @FXML
+    public void animation(){
+        animation.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                String[] teste = texto.split("");
+                elemento += teste[i];
+                 Platform.runLater(() -> {
+                     animation.setText(elemento);               
+                 });
+                 i++;
+                if(i != texto.length() ) animation();
+            }
+        };
+        timer.schedule(task, 80);
+    }
+    
+    @FXML
+    public void ponto(){
+        Timer timer = new Timer();
+        TimerTask task;
+        task = new TimerTask( ){
+            @Override
+            public void run() {
+                if(realese == false){
+                    Platform.runLater(() -> {
+                          animation.setText(elemento.substring(0, elemento.length()-1));
+                          realese = true;
+                          ponto();
+                     });
+                }
+                else{
+                          Platform.runLater(() -> {
+                            animation.setText(elemento);
+                            realese=false;
+                            ponto();
+                     });
+                }
+            }
+        };
+        if(end == false)  { 
+            timer.schedule(task, 3000);
+            end = true;
+        }
+        else{
+            timer.schedule(task, 500);
+        }
     }
     
     @Override

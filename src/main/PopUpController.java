@@ -63,7 +63,7 @@ public class PopUpController {
         } 
         
         @FXML
-        public void popUpWarnings() throws IOException {
+        public void popUpWarnings(boolean option, Pane tela) throws IOException {
              fxmlLoader2 = new FXMLLoader(getClass().getResource("popup.fxml"));
              root2 = fxmlLoader2.load();
             pane2 = (Pane) root2.getChildrenUnmodifiable().get(1);
@@ -77,17 +77,23 @@ public class PopUpController {
             Button voltar = new Button();
             continuar.setOnMouseClicked((MouseEvent event) -> {
                  try {
-                     fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
-                     root = fxmlLoader.load();
-                     scene =  FXMLController.sceneGrid;
-                     stage = (Stage) FXMLController.sceneGrid.getWindow();
-                     stage.setMinWidth(790); 
-                     stage.setMinHeight(345); 
-                     stage.setWidth(790);
-                     stage.setHeight(345);
-                     stage.setScene(scene);
-                     scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
-                     scene.setRoot(root);
+                     if(option){
+                        fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
+                        root = fxmlLoader.load();
+                        scene =  FXMLController.sceneGrid;
+                        stage = (Stage) FXMLController.sceneGrid.getWindow();
+                        stage.setMinWidth(790); 
+                        stage.setMinHeight(345); 
+                        stage.setWidth(790);
+                        stage.setHeight(345);
+                        stage.setScene(scene);
+                        scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
+                        scene.setRoot(root);
+                     }
+                     else{
+                         Stage telaAtual = (Stage) tela.getScene().getWindow();
+                         telaAtual.close();
+                     }
                      fechar();
                  } catch (IOException ex) {
                      Logger.getLogger(PopUpController.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,9 +101,9 @@ public class PopUpController {
             });
             voltar.setText("Voltar");
             voltar.setOnMouseClicked((MouseEvent event) -> {
-                if(!FXMLController.deleteMembros.isEmpty()){
-                    FXMLController.deleteMembros.get(FXMLController.deleteMembros.size()-1).delete();
-                    FXMLController.deleteMembros.remove(FXMLController.deleteMembros.size()-1);
+                if(!FXMLController.membros.isEmpty()){
+                    FXMLController.membros.get(FXMLController.membros.size()-1).delete();
+                    FXMLController.membros.remove(FXMLController.membros.size()-1);
                 }
                 else{
                     FXMLController.project.coordenador.delete();
