@@ -69,6 +69,7 @@ public class TelaPrincipalController {
         scene.getStylesheets().add(getClass().getResource("fxml.css").toExternalForm());
         Label question = new Label();
         Button continuar = new Button();
+        FXMLController.countEmployee = 0;
         continuar.setOnMouseClicked((MouseEvent event) -> {
             try {
                 novosMembros();
@@ -98,5 +99,11 @@ public class TelaPrincipalController {
         stage.setHeight(500);
         FXMLController telasMembros = new FXMLController();
         telasMembros.telaCadastroMembro(quantidadeMembros, paneChoice, idEquipe,false);
+    }
+    
+    public static void ajustarTela(Pane tela){
+        Stage stage = (Stage) tela.getScene().getWindow();
+        stage.setWidth(356);
+        stage.setHeight(181);
     }
 }

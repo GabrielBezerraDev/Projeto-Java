@@ -50,7 +50,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
     PopUpController popUp = new PopUpController();
     public static Project project;
     private boolean visiblePeople = true;
-    private int countEmployee = 0;
+    public static int countEmployee = 0;
     private int i = 0;
     
     
@@ -349,7 +349,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                     }
                 });
                 buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
-                    previous();
+                    previous(option, tela);
                 });
                 for (int i = 0; i < labelsEmployees.length; i++){
                     textInput[i] = new TextField();
@@ -380,7 +380,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
     }
     
     @FXML
-    public void previous(){
+    public void previous(boolean option, Pane tela){
         if(countEmployee > 0){
 
         }
@@ -391,7 +391,6 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 System.out.println(membros.get(membros.size()-1).nome);
                 membros.remove(membros.size()-1);
             }
-
             countEmployee-=1;
             scrollPane.get(countEmployee).setVisible(false);
             scrollPane.remove(countEmployee);
@@ -399,10 +398,15 @@ public class FXMLController implements Initializable, VerificarEfetivo {
         }
         if(countEmployee == 0 && visiblePeople == false){
             //deletar coordenador
-            Project.coordenador.delete();
-            cadastroPessoa.setVisible(true);
-            visiblePeople = true;
-            tittleDescription.setText("Coordenador");
+            if(option){
+                Project.coordenador.delete();
+                cadastroPessoa.setVisible(true);
+                visiblePeople = true;
+                tittleDescription.setText("Coordenador");
+            }
+            else{
+                TelaPrincipalController.ajustarTela(tela);
+            }
             return;
         }
         else if(scrollPane.isEmpty()){
@@ -413,7 +417,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             tittleDescription.setText("Projeto");
             return;
         }
-        tittleDescription.setText(String.format("%dºmembro:", countEmployee));
+        if(option)  tittleDescription.setText(String.format("%dºmembro:", countEmployee));
         scrollPane.get(countEmployee-1).setVisible(true);
     }
     
