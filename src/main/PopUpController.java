@@ -77,6 +77,7 @@ public class PopUpController {
             Button voltar = new Button();
             continuar.setOnMouseClicked((MouseEvent event) -> {
                  try {
+                    if(!option) TelaPrincipalController.pegarUsuarios(TelaPrincipalController.cargoAtual);
                      if(option){
                         fxmlLoader = new FXMLLoader(getClass().getResource("FXML.fxml"));
                         root = fxmlLoader.load();
@@ -139,11 +140,6 @@ public class PopUpController {
             stage2.close();
         }
         
-        @FXML
-        public void initialize(URL url, ResourceBundle rb) {
-            Platform.runLater(() -> {
-
-            });
-        }
+       
         
 }

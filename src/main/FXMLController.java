@@ -45,11 +45,13 @@ import javafx.stage.Screen;
 
 
 public class FXMLController implements Initializable, VerificarEfetivo {
+    
     public static List<Membros> membros = new ArrayList<>();
     private String[] generos = {"Masculino","Femino","Outro"};
     PopUpController popUp = new PopUpController();
     public static Project project;
     private boolean visiblePeople = true;
+    public static boolean option = false;
     public static int countEmployee = 0;
     private int i = 0;
     
@@ -181,9 +183,10 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                     Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TelaPrincipalController.pegarUsuarios(cargo);
     }
     
     @FXML
@@ -243,11 +246,12 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             }
             project.coordenador.setData();
         }
-        telaCadastroMembro(amountEmployee, main, project.id,true);
+        option = true;
+        telaCadastroMembro(amountEmployee, main, project.id);
     }
     
     @FXML
-    public void telaCadastroMembro(TextField campo, Pane tela, int projetoId, boolean option) throws IOException{
+    public void telaCadastroMembro(TextField campo, Pane tela, int projetoId) throws IOException{
          if(countEmployee > 0){
             //Pegar o dados do Painel anterior (que eu acabei de criar).
             System.out.println("PEGANDO DADOS");
@@ -295,14 +299,12 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                     tittleDescription.setText(String.format("%dºmembro:", countEmployee+1));
                     cadastroPessoa.setVisible(false);
                 }
-                else{
-                    
-                }
                 visiblePeople = false;
                 System.out.println("Verdadeiro");
                 System.out.println( Integer.parseInt(campo.getText()));
                 scrollPane.add(new ScrollPane());
                 scrollPane.get(countEmployee).setPrefSize(420, 400);
+                if(!option) scrollPane.get(countEmployee).setLayoutX(200);//200 um bom valor.
                 employee.add(new Pane());
                 scrollPane.get(countEmployee).setContent(employee.get(countEmployee));
                 employee.get(countEmployee).setId(String.format("employee%d", countEmployee));
@@ -343,13 +345,13 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 buttonNext.setLayoutY(486);
                 buttonNext.setOnMouseClicked((MouseEvent event) -> {
                     try {
-                        telaCadastroMembro( campo,  tela,  projetoId,  option);
+                        telaCadastroMembro( campo,  tela,  projetoId);
                     } catch (IOException ex) {
                         Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
                 buttonPrevious.setOnMouseClicked((MouseEvent event) -> {
-                    previous(option, tela);
+                    previous();
                 });
                 for (int i = 0; i < labelsEmployees.length; i++){
                     textInput[i] = new TextField();
@@ -378,9 +380,9 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             popUp.popUpWarnings(option, tela);
         }
     }
-    
+       
     @FXML
-    public void previous(boolean option, Pane tela){
+    public void previous(){
         if(countEmployee > 0){
 
         }
@@ -405,7 +407,8 @@ public class FXMLController implements Initializable, VerificarEfetivo {
                 tittleDescription.setText("Coordenador");
             }
             else{
-                TelaPrincipalController.ajustarTela(tela);
+                TelaPrincipalController ajustarTela = new TelaPrincipalController();
+                ajustarTela.ajustarTela();
             }
             return;
         }
