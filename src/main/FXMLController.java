@@ -161,6 +161,7 @@ public class FXMLController implements Initializable, VerificarEfetivo {
             System.out.println(paneCoordenador.getChildren());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("telaPrincipal.fxml"));
             rootTelaPrincipal = loader.load();
+            TelaPrincipalController.telaPrincipal = (AnchorPane) rootTelaPrincipal;
             scene = painel.getScene();
             Stage stage = (Stage) painel.getScene().getWindow();
             stage.setMaxWidth(bounds.getWidth());

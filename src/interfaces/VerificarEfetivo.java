@@ -32,7 +32,7 @@ public interface VerificarEfetivo {
             }
             else{
                 senha = rs.getString("senha");
-                id = rs.getInt("id");
+                id = rs.getInt("projeto_id");
             }
         }
         catch(SQLException e){

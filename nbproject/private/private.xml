@@ -2,29 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/accountsusers/Coordenador.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/fxml1.css</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/telaPrincipal.fxml</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/TelaPrincipalController.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/db/DB.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/programming.png</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/fxml.css</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/FXMLController.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/image-error-icon-17.png</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/db/DbException.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/accountsusers/Users.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/popup.fxml</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/Java-Logo.png</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/interfaces/Valida.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/business-image.jpg</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/project/Project.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/db/DbIntegrityException.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/tela2fim.fxml</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/NewFXMain.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/accountsusers/Membros.java</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/popUpChoice.fxml</file>
-            <file>file:/home/dti-dev-02/Documentos/github/Projeto-Java/src/main/PopUpController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

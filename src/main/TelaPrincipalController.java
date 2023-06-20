@@ -29,6 +29,7 @@ import main.FXMLController;
 import interfaces.ConverterString;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.control.ScrollPane;
 
 
 /**
@@ -40,6 +41,7 @@ public class TelaPrincipalController implements ConverterString {
     private TextField quantidadeMembros = new TextField();
     private Label question = new Label();
     private Button continuar = new Button();
+    public static AnchorPane telaPrincipal;
     private static Pane paneChoice;
     private static boolean setTela = false;
     public static int idEquipe;
@@ -47,6 +49,7 @@ public class TelaPrincipalController implements ConverterString {
     public static Scene scene; 
     public static Stage stage;
     public static String cargoAtual;
+    private static int eixoY = 0;
     
     public void adicionarMembro() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("popUpChoice.fxml"));
@@ -127,13 +130,18 @@ public class TelaPrincipalController implements ConverterString {
                 rs = st.executeQuery(String.format("select * from %s "
                         + "where projeto_id = %d",cargo, idEquipe));
                 while(rs.next()){
-                    String nome = rs.getString("nome"),sobrenome = rs.getString("sobrenome"),cpf = rs.getString("cpf"),contato = rs.getString("contato"),email = rs.getString("email"),genero = rs.getString("genero"), inicio = rs.getString("data_inicio"), fim = rs.getString("data_fim");
-//                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//                    String dataInicio = dateFormat.format(inicio);
-//                    String dataFim = dateFormat.format(fim);
-//                    System.out.printf("%nNome: %s%nSobrenome: %s%nCPF: %s%nContato: %s%nEmail: %s%nGênero: %s%nData inicio: %s%nData fim: %s%n",nome,sobrenome,cpf,contato, email, genero,dataInicio,dataFim);
-                      System.out.printf("%nNome: %s%nSobrenome: %s%nCPF: %s%nContato: %s%nEmail: %s%nGênero: %s%n",nome,sobrenome,cpf,contato, email, genero);
-                    
+                    String nome = rs.getString("nome"),sobrenome = rs.getString("sobrenome"),cpf = rs.getString("cpf"),contato = rs.getString("contato"),email = rs.getString("email"),genero = rs.getString("genero");
+                    Date inicio = rs.getDate("data_inicio"), fim = rs.getDate("data_fim");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    System.out.println(inicio.getClass());
+                    System.out.println(fim.getClass());
+                    String dataInicio = dateFormat.format(inicio);
+                    String dataFim = dateFormat.format(fim);
+                    System.out.println("Tela: "+telaPrincipal.getChildren());
+                    System.out.printf("%nNome: %s%nSobrenome: %s%nCPF: %s%nContato: %s%nEmail: %s%nGênero: %s%nData inicio: %s%nData fim: %s%n",nome,sobrenome,cpf,contato, email, genero,dataInicio,dataFim);
+                    String[] dadosAtuais = {String.format("%s %s",nome,sobrenome), cpf, contato, email, genero, dataInicio, dataFim};
+                    eixoY += 54;
+                    montandoTabela(dadosAtuais);
                 }
             }
             catch(SQLException e){
@@ -144,5 +152,25 @@ public class TelaPrincipalController implements ConverterString {
                 DB.closeConnection();
             }
     }
+        
+        public static void montandoTabela(String[] dadosAtuais){
+            int[] medidas = {240,206,240,240,150,240,240};
+            ScrollPane scrollTabela = (ScrollPane) telaPrincipal.getChildren().get(1);
+            Pane tabela = (Pane) scrollTabela.getContent();
+            int eixoX = 0;
+            for(int i = 0; i < dadosAtuais.length; i++){
+                Label novaCelula = new Label();
+                novaCelula.setWrapText(true);
+                novaCelula.setStyle("-fx-alignment: center; -fx-background-color: white; -fx-border-style:solid;");
+                novaCelula.setPrefWidth(medidas[i]);
+                novaCelula.setPrefHeight(53);
+                novaCelula.setLayoutX(eixoX);
+                novaCelula.setLayoutY(eixoY);
+                novaCelula.setText(dadosAtuais[i]);
+                tabela.getChildren().add(novaCelula);
+                eixoX+=medidas[i];
+            }
+            
+        }
     
 }
